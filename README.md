@@ -1,7 +1,7 @@
 pitchfinder.js
 ==============
 
-A compilation of pitch detection algorithms for Javascript.  Throw out your old FFTs and zero-crossings, and make way for YIN, McLeod Pitch Method, Dynamic Wavelet, and more!  Used in my app [Tunesmith](https://github.com/peterkhayes/Tunesmith "Tunesmit").
+A compilation of pitch detection algorithms for Javascript.  Throw out your old FFTs and zero-crossings, and make way for YIN, McLeod Pitch Method, Dynamic Wavelet, and more!  Used in my app [Tunesmith](https://github.com/peterkhayes/Tunesmith "Tunesmith").
 
 How to use
 ==========
@@ -9,7 +9,8 @@ How to use
 * Include pitchfinder.js in your project.
 * Call its generator functions to return pitch detector functions.
 * Pass config objects to set properties of the function you want, including sample rate, buffer size, and more.
-* Call your functions with Float32Arrays as inputs - NOT audioBuffer objects (support for that coming soon).  Conversion from audioBuffer to Float32Array is relatively trivial, like this: floatArray = buffer.getChannelData(0)
+* Call your functions with Float32Arrays as inputs - NOT audioBuffer objects (support for that coming soon).  Conversion from audioBuffer to Float32Array is relatively trivial, like this: 
+    floatArray = buffer.getChannelData(0)
 * Extract the pitch from the returned object's 'freq' key.  Some methods provide other info, such as probability.
 * ???
 * Profit!
