@@ -9,7 +9,7 @@ How to use
 * Include pitchfinder.js in your project.
 * Call its generator functions to return pitch detector functions.
 * Pass config objects to set properties of the function you want, including sample rate, buffer size, and more.
-* Call your functions with Float32Arrays as inputs - NOT audioBuffer objects (support for that coming soon).  Conversion from audioBuffer to Float32Array is relatively trivial, see: http://stackoverflow.com/questions/14841708/possible-to-create-an-audiobuffer-from-memory-ie-an-int8array
+* Call your functions with Float32Arrays as inputs - NOT audioBuffer objects (support for that coming soon).  Conversion from audioBuffer to Float32Array is relatively trivial, like this: floatArray = buffer.getChannelData(0)
 * ???
 * Profit!
 * Send me your app!
