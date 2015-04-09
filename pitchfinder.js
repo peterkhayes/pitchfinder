@@ -510,7 +510,7 @@ var PitchFinder = {};
    * detect if one or more predefined frequencies are present in a signal. E.g. to
    * do DTMF decoding.
    * 
-   * @author Joren Six
+   * @param frequencies -- an array of frequencies (in hz) to detect
    */
   pf.Goertzel = function(frequencies, config) {
     "use strict";
