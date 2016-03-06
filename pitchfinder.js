@@ -422,6 +422,10 @@ var PitchFinder = {};
         var d,
             distances = [];
 
+        for (var i=0; i< curSamNb;i++){
+          distances[i] = 0;
+        }
+
         for (var i = 0; i < nbMins; i++) {
           for (var j = 1; j < differenceLevelsN; j++) {
             if (i+j < nbMins) {
