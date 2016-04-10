@@ -543,7 +543,7 @@ var PitchFinder = {};
         /**
          * Defines the relative size the chosen peak (pitch) has.
          */
-        cutoff = config.cutoff,
+        cutoff = config.cutoff || DEFAULT_CUTOFF,
 
         /**
          * The audio sample rate. Most audio has a sample rate of 44.1kHz.
@@ -614,7 +614,7 @@ var PitchFinder = {};
           nsdfb = nsdf[tau],
           nsdfc = nsdf[tau + 1],
           bValue = tau,
-          bottom = nsdfc + nsdfa - 2 * nsdfb;
+          bottom = nsdfc + nsdfa - 0.5 * nsdfb;
       if (bottom === 0) {
         turningPointX = bValue;
         turningPointY = nsdfb;
@@ -631,12 +631,12 @@ var PitchFinder = {};
           curMaxPos = 0;
 
       // find the first negative zero crossing.
-      while (pos < nsdf.length - 1 / 3 && nsdf[pos] > 0) {
+      while (pos < (nsdf.length - 1) / 3 && nsdf[pos] > 0) {
         pos++;
       }
 
       // loop over all the values below zero.
-      while (pos < nsdf.length - 1 && nsdf[pos <= 0]) {
+      while (pos < nsdf.length - 1 && nsdf[pos] <= 0) {
         pos++;
       }
 
@@ -677,10 +677,10 @@ var PitchFinder = {};
     return function(float32AudioBuffer) {
 
       // 0. Clear old results.
-      var pitch,
-          maxPositions = [],
-          periodEstimates = [],
-          ampEstimates = [];
+      var pitch;
+      maxPositions = [];
+      periodEstimates = [];
+      ampEstimates = [];
 
       // 1. Calculute the normalized square difference for each Tau value.
       normalizedSquareDifference(float32AudioBuffer);
@@ -689,7 +689,8 @@ var PitchFinder = {};
 
       var highestAmplitude = -Infinity;
 
-      for (var tau = 0; tau < maxPositions.length; i++) {
+      for (var i = 0; i < maxPositions.length; i++) {
+        tau = maxPositions[i];
         // make sure every annotation has a probability attached
         highestAmplitude = Math.max(highestAmplitude, nsdf[tau]);
 
@@ -718,7 +719,7 @@ var PitchFinder = {};
           }
         }
 
-        var period = periodIndex[periodIndex],
+        var period = periodEstimates[periodIndex],
             pitchEstimate = sampleRate / period;
 
         if (pitchEstimate > LOWER_PITCH_CUTOFF) {
