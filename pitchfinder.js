@@ -19,9 +19,9 @@
  * or on Github at https://github.com/JorenSix/TarsosDSP
  */
 
-var PitchFinder = {};
+(function(root) {
+  var pf = {};
 
-(function(pf) {
   pf.AMDF = function(config) {
     config = config || {};
 
@@ -835,4 +835,4 @@ var PitchFinder = {};
       return result;
     };
   };
-})(PitchFinder);
+}).call(this);

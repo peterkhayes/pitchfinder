@@ -1,0 +1,49 @@
+{
+  "name": "pitchfinder",
+  "version": "1.0.0",
+  "description": "A pitch-detection library for node and the browser",
+  "main": "lib/pitchfinder.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha",
+    "lint": "eslint ./src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/peterkhayes/pitchfinder.js.git"
+  },
+  "keywords": [
+    "pitch",
+    "detection",
+    "finding",
+    "music",
+    "note",
+    "audio",
+    "YIN",
+    "McLeod",
+    "AMD",
+    "dynamic",
+    "wavelet"
+  ],
+  "author": "Peter Hayes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/peterkhayes/pitchfinder.js/issues"
+  },
+  "homepage": "https://github.com/peterkhayes/pitchfinder.js#readme",
+  "dependencies": {
+    "fft": "^0.2.1"
+  },
+  "devDependencies": {
+    "babel": "^5.8.20",
+    "babel-eslint": "^6.0.2",
+    "eslint": "^2.7.0",
+    "expect": "^1.16.0",
+    "mocha": "^2.4.5",
+    "mz": "^2.4.0",
+    "wav": "^1.0.0",
+    "wav-decoder": "^1.1.0"
+  }
+}
