@@ -15,7 +15,9 @@ module.exports = function(config = {}) {
   const maxPeriod = Math.round(sampleRate / minFrequency + 0.5);
   const minPeriod = Math.round(sampleRate / maxFrequency + 0.5);
 
-  return function(float32AudioBuffer) {
+  return function AMDFDetector (float32AudioBuffer) {
+    "use strict";
+
     const maxShift = float32AudioBuffer.length;
     
     let t = 0;

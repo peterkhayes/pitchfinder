@@ -12,7 +12,8 @@ module.exports = function(config = {}) {
 
   const sampleRate = config.sampleRate || DEFAULT_SAMPLE_RATE;
 
-  return function(float32AudioBuffer) {
+  return function DynamicWaveletDetector (float32AudioBuffer) {
+    "use strict";
 
     const mins = [];
     const maxs = [];

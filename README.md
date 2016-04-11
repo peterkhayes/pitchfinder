@@ -1,42 +1,52 @@
-pitchfinder.js
-==============
+# pitchfinder.js
 
-A compilation of pitch detection algorithms for Javascript.  Throw out your old FFTs and zero-crossings, and make way for YIN, McLeod Pitch Method, Dynamic Wavelet, and more!  Used in my app [Tunesmith](https://github.com/peterkhayes/Tunesmith "Tunesmith").
+A compilation of pitch detection algorithms for Javascript. Supports both 
 
-How to use
-==========
+## A note on versions
 
-* Include pitchfinder.js in your project.
-* Call its generator functions to return pitch detector functions.
-* Pass config objects to set properties of the function you want, including sample rate, buffer size, and more.
-* Call your functions with Float32Arrays as inputs - NOT audioBuffer objects (support for that coming soon).  Conversion from audioBuffer to Float32Array is relatively trivial, like this: 
-    floatArray = buffer.getChannelData(0)
-* Extract the pitch from the returned object's 'freq' key.  Some methods provide other info, such as probability.
-* ???
-* Profit!
-* Send me your app to check out!
+This library previous consisted of a single script tag to be included in the browser.  I'm deprecating this version and replacing it with a new, npm/babel version.  If you have been using the old version, please see the `legacy` branch, which consists of that code.  However, I will not be supporting it going forwards.  Version 2 is bringing many improvements, tests, and more.
 
-Code examples
-========
+## Provided pitch-finding algorithms
+- **YIN** - The best balance of accuracy and speed, in my experience.  Occasionally provides values that are wildly incorrect.
+- **AMDF** - Slow and only accurate to around +/- 2%, but usually finds a frequency.
+- **Dynamic Wavelet** - Very fast, but struggles to identify lower frequencies.
+- **YIN** w/ FFT *(coming soon)*
+- **Goertzel** w/ FFT *(coming soon)*
+- **MacLeod** w/ FFT *(coming soon)*
 
-Making a pitch detector with default settings:
----------
-    var YINDetector = PITCHFINDER.YIN();
-    var estimate = YINDetector(float32Array);
-    console.log(estimate.freq);
+## Installation
+`npm install --save pitchfinder`
 
-Making a pitch detector with custom settings:
----------
-    var McLeod = PITCHFINDER.MPM({
-      samplerate: 48000,
-      bufferSize: 3456,
-      etc, etc.
-    })
-<em>(full list of parameters coming soon)</em>
+## Usage
 
+### Finding the pitch of a wav file in node.
+```javascript
+const fs = require("fs"); // promise-based fs
+const WavDecoder = require("wav-decoder"); // used to decode wav files
+const Pitchfinder = require("pitchfinder");
 
+// see below for options configuration parameters.
+const detectPitch = new Pitchfinder.YIN();
 
-Thanks
-=======
-These algorithms were ported from Jonas Six's excellent TarsosDSP library (written in Java).  If you're looking for a far deeper set of tools than this, check out his work.
- 
+const buffer = fs.readFileSync(PATH_TO_FILE);
+const decoded = WavDecoder.decode(buffer) // get audio data from file using `wav-decoder`
+const float32Array = decoded.channelData[0]); // get a single channel of sound
+const pitch = detectPitch(float32Array); // null if cannot be identified
+```
+
+### Finding the pitch of a WebAudio AudioBuffer in the browser
+This assumes you are using an npm-compatible build system, like Webpack or Browserify, and that your target browser supports WebAudio.
+```javascript
+const Pitchfinder = require("pitchfinder");
+const detectPitch = Pitchfinder.AMDF();
+
+const myAudioBuffer = getAudioBuffer(); // assume this returns a WebAudio AudioBuffer object
+const float32Array = myAudioBuffer.getChannelData(0) // get a single channel of sound
+const pitch = detectPitch(float32Array);
+```
+
+## Configuration
+*todo*
+
+## Thanks
+These algorithms were ported from Jonas Six's excellent TarsosDSP library (written in Java).  If you're looking for a far deeper set of tools than this, check out his work [on his website](http://tarsos.0110.be/tag/TarsosDSP) or [on Github](https://github.com/JorenSix/TarsosDSP). 

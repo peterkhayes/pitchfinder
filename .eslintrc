@@ -33,7 +33,7 @@
     "no-redeclare": 2,
     "no-shadow": 2,
     "no-new-func": 2,
-    "no-unused-vars": [2, {"varsIgnorePattern": "React"}],
+    "no-unused-vars": 2,
     "semi": [2, "always"],
     "no-extra-semi": 2,
     "no-debugger": 2,             // disallow use of debugger
@@ -51,6 +51,6 @@
     "no-label-var": 2,
     "no-var": 2,
     "no-const-assign": 2,
-    "prefer-const": 1
+    "prefer-const": 2
   }
 }

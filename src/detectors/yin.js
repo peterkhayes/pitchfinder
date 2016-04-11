@@ -8,7 +8,9 @@ module.exports = function(config = {}) {
   const sampleRate = config.sampleRate || DEFAULT_SAMPLE_RATE;
   const probabilityThreshold = config.probabilityThreshold || DEFAULT_PROBABILITY_THRESHOLD;
 
-  return function(float32AudioBuffer) {
+  return function YINDetector (float32AudioBuffer) {
+    "use strict";
+
     // Set buffer size to the highest power of two below the provided buffer's length.
     let bufferSize;
     for (bufferSize = 1; bufferSize < float32AudioBuffer.length; bufferSize *= 2);

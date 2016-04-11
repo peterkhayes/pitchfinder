@@ -1,14 +1,16 @@
 {
   "name": "pitchfinder",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A pitch-detection library for node and the browser",
   "main": "lib/pitchfinder.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
+    "build": "rm -rf ./lib && mkdir lib && babel ./src/index.js -o ./lib/index.js",
+    "lint": "eslint ./src",
     "test": "mocha",
-    "lint": "eslint ./src"
+    "prepublish": "npm run lint && npm test && npm build"
   },
   "repository": {
     "type": "git",
@@ -34,7 +36,8 @@
   },
   "homepage": "https://github.com/peterkhayes/pitchfinder.js#readme",
   "dependencies": {
-    "fft": "^0.2.1"
+    "fft": "^0.2.1",
+    "teoria": "^2.2.0"
   },
   "devDependencies": {
     "babel": "^5.8.20",
