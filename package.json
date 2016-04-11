@@ -1,6 +1,6 @@
 {
   "name": "pitchfinder",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A pitch-detection library for node and the browser",
   "main": "lib/pitchfinder.js",
   "directories": {
@@ -18,16 +18,13 @@
   },
   "keywords": [
     "pitch",
+    "frequency",
+    "detector",
+    "detect",
     "detection",
     "finding",
     "music",
-    "note",
-    "audio",
-    "YIN",
-    "McLeod",
-    "AMD",
-    "dynamic",
-    "wavelet"
+    "audio"
   ],
   "author": "Peter Hayes",
   "license": "ISC",

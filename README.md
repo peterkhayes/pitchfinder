@@ -1,6 +1,6 @@
-# pitchfinder.js
+# Pitchfinder
 
-A compilation of pitch detection algorithms for Javascript. Supports both 
+A compilation of pitch detection algorithms for Javascript. Supports both the browser and node.
 
 ## A note on versions
 
@@ -10,9 +10,9 @@ This library previous consisted of a single script tag to be included in the bro
 - **YIN** - The best balance of accuracy and speed, in my experience.  Occasionally provides values that are wildly incorrect.
 - **AMDF** - Slow and only accurate to around +/- 2%, but finds a frequency more consistenly than others.
 - **Dynamic Wavelet** - Very fast, but struggles to identify lower frequencies.
-- **YIN** w/ FFT *(coming soon)*
-- **Goertzel** w/ FFT *(coming soon)*
-- **MacLeod** w/ FFT *(coming soon)*
+- **YIN w/ FFT** *(coming soon)*
+- **Goertzel** *(coming soon)*
+- **MacLeod** *(coming soon)*
 
 ## Installation
 `npm install --save pitchfinder`
