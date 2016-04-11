@@ -20,7 +20,7 @@ This library previous consisted of a single script tag to be included in the bro
 ## Usage
 
 ### Finding the pitch of a wav file in node
-All pitchfinding algorithms provided operate on `Float32Array`s. To find the pitch of a `wav` file, we can use the `wav-decoder` library to extract this data.
+All pitchfinding algorithms provided operate on `Float32Array`s. To find the pitch of a `wav` file, we can use the `wav-decoder` library to extract the data into such an array.
 ```javascript
 const fs = require("fs"); // promise-based fs
 const WavDecoder = require("wav-decoder");
@@ -31,8 +31,8 @@ const detectPitch = new Pitchfinder.YIN();
 
 const buffer = fs.readFileSync(PATH_TO_FILE);
 const decoded = WavDecoder.decode(buffer); // get audio data from file using `wav-decoder`
-const float32Array = decoded.channelData[0]); // get a single channel of sound
-const pitch = detectPitch(float32Array); // null if cannot be identified
+const float32Array = decoded.channelData[0]; // get a single channel of sound
+const pitch = detectPitch(float32Array); // null if pitch cannot be identified
 ```
 
 ### Finding the pitch of a WebAudio AudioBuffer in the browser
@@ -43,7 +43,7 @@ const detectPitch = Pitchfinder.AMDF();
 
 const myAudioBuffer = getAudioBuffer(); // assume this returns a WebAudio AudioBuffer object
 const float32Array = myAudioBuffer.getChannelData(0); // get a single channel of sound
-const pitch = detectPitch(float32Array);
+const pitch = detectPitch(float32Array); // null if pitch cannot be identified
 ```
 
 ## Configuration
