@@ -1,5 +1,5 @@
-# Pitchfinder
-
+[![Build Status](https://travis-ci.org/peterkhayes/pitchfinder.svg?branch=master)](https://travis-ci.org/peterkhayes/pitchfinder)  
+# pitchfinder.js
 A compilation of pitch detection algorithms for Javascript. Supports both the browser and node.
 
 ## A note on versions
@@ -22,7 +22,7 @@ This library previous consisted of a single script tag to be included in the bro
 ### Finding the pitch of a wav file in node
 All pitchfinding algorithms provided operate on `Float32Array`s. To find the pitch of a `wav` file, we can use the `wav-decoder` library to extract the data into such an array.
 ```javascript
-const fs = require("fs"); // promise-based fs
+const fs = require("fs");
 const WavDecoder = require("wav-decoder");
 const Pitchfinder = require("pitchfinder");
 
@@ -46,8 +46,50 @@ const float32Array = myAudioBuffer.getChannelData(0); // get a single channel of
 const pitch = detectPitch(float32Array); // null if pitch cannot be identified
 ```
 
+### Finding a series of pitches
+Set a tempo and a quantization interval, and an array of pitches at each interval will be returned.
+
+```javascript
+const Pitchfinder = require("pitchfinder");
+const detectPitch = Pitchfinder.YIN();
+
+const frequencies = Pitchfinder.frequencies(detectPitch, float32Array, {
+  tempo: 130, // in BPM, defaults to 120
+  quantization: 4, // samples per beat, defaults to 4 (i.e. 16th notes)
+});
+
+// or use multiple detectors for better accuracy at the cost of speed.
+const detectors = [detectPitch, Pitchfinder.AMDF()];
+const moreAccurateFrequencies = Pitchfinder.frequencies(detectors, float32Array, {
+  tempo: 130, // in BPM, defaults to 120
+  quantization: 4, // samples per beat, defaults to 4 (i.e. 16th notes)
+});
+```
+
+
 ## Configuration
-*TODO*
+
+### All detectors
+- `sampleRate` - defaults to 44100
+
+### YIN
+- `threshold` - used by the algorithm
+- `probabilityThreshold` - don't return a pitch if probability estimate is below this number.
+
+### AMDF
+- `minFrequency` - Lowest frequency detectable
+- `maxFrequency` - Highest frequency detectable
+- `sensitivity`
+- `ratio`
+
+### Dynamic Wavelet
+*no special config*
+
+
+## Todo
+- Integrate with `teoria` or another music theory tool to add more intelligent parsing.
+- Note-onsite algorithms.
+- Enable requiring of single detectors.
 
 ## Thanks
 These algorithms were ported from Jonas Six's excellent TarsosDSP library (written in Java).  If you're looking for a far deeper set of tools than this, check out his work [on his website](http://tarsos.0110.be/tag/TarsosDSP) or [on Github](https://github.com/JorenSix/TarsosDSP). 

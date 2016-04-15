@@ -3,9 +3,6 @@
   "version": "2.0.1",
   "description": "A pitch-detection library for node and the browser",
   "main": "lib/pitchfinder.js",
-  "directories": {
-    "test": "test"
-  },
   "scripts": {
     "build": "rm -rf ./lib && mkdir lib && babel ./src/index.js -o ./lib/index.js",
     "lint": "eslint ./src",
@@ -32,10 +29,6 @@
     "url": "https://github.com/peterkhayes/pitchfinder.js/issues"
   },
   "homepage": "https://github.com/peterkhayes/pitchfinder.js#readme",
-  "dependencies": {
-    "fft": "^0.2.1",
-    "teoria": "^2.2.0"
-  },
   "devDependencies": {
     "babel": "^5.8.20",
     "babel-eslint": "^6.0.2",

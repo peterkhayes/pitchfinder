@@ -35,11 +35,11 @@ function pitchConsensus (detectors, chunk) {
 
 module.exports = function(detector, float32AudioBuffer, options = {}) {
 
-  const bufferLength = float32AudioBuffer.length;
   const tempo = options.tempo || DEFAULT_TEMPO;
   const quantization = options.quantization || DEFAULT_QUANTIZATION;
   const sampleRate = options.sampleRate || DEFAULT_SAMPLE_RATE;
 
+  const bufferLength = float32AudioBuffer.length;
   const chunkSize = Math.round((sampleRate * 60) / (quantization * tempo));
 
   let getPitch;

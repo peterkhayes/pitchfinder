@@ -113,7 +113,7 @@ describe("Pitchfinder", () => {
     });
   });
 
-  describe("Notes tool", () => {
+  xdescribe("Notes tool", () => {
 
     describe("C-major scale, electric piano, quarter notes, 120 bpm", () => {
 
