@@ -1,6 +1,6 @@
 {
   "name": "pitchfinder",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "A pitch-detection library for node and the browser",
   "main": "lib/pitchfinder.js",
   "scripts": {
