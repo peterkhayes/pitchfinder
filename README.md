@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/peterkhayes/pitchfinder.svg?branch=master)](https://travis-ci.org/peterkhayes/pitchfinder)  
-# pitchfinder.js
+# pitchfinder
 A compilation of pitch detection algorithms for Javascript. Supports both the browser and node.
 
 ## A note on versions

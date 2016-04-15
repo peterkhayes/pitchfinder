@@ -1,11 +1,8 @@
 const DEFAULT_SAMPLE_RATE = 44100;
-
 const MAX_FLWT_LEVELS = 6;
 const MAX_F = 3000;
 const DIFFERENCE_LEVELS_N = 3;
 const MAXIMA_THRESHOLD_RATIO = 0.75;
-
-
 
 
 module.exports = function(config = {}) {
