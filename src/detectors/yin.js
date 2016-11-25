@@ -1,3 +1,28 @@
+
+/*
+  Copyright (C) 2003-2009 Paul Brossier <piem@aubio.org>
+  This file is part of aubio.
+  aubio is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+  aubio is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  You should have received a copy of the GNU General Public License
+  along with aubio.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+/* This algorithm was developed by A. de Cheveigné and H. Kawahara and
+ * published in:
+ * 
+ * de Cheveigné, A., Kawahara, H. (2002) "YIN, a fundamental frequency
+ * estimator for speech and music", J. Acoust. Soc. Am. 111, 1917-1930.  
+ *
+ * see http://recherche.ircam.fr/equipes/pcm/pub/people/cheveign.html
+ */
+
 const DEFAULT_THRESHOLD = 0.10;
 const DEFAULT_SAMPLE_RATE = 44100;
 const DEFAULT_PROBABILITY_THRESHOLD = 0.1;

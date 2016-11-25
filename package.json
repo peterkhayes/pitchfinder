@@ -1,6 +1,6 @@
 {
   "name": "pitchfinder",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "A pitch-detection library for node and the browser",
   "scripts": {
     "build": "rm -rf ./lib && mkdir lib && babel src -d lib",
@@ -27,7 +27,7 @@
     "audio"
   ],
   "author": "Peter Hayes",
-  "license": "ISC",
+  "license": "GNU v3",
   "bugs": {
     "url": "https://github.com/peterkhayes/pitchfinder/issues"
   },
