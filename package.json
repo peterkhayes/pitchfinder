@@ -3,7 +3,8 @@
   "version": "2.0.4",
   "description": "A pitch-detection library for node and the browser",
   "scripts": {
-    "build": "rm -rf ./lib && mkdir lib && babel src -d lib",
+    "clean": "rm -rf ./lib ./build",
+    "build": "npm run clean && node-gyp configure build && babel src -d lib",
     "lint": "eslint ./src",
     "test": "mocha",
     "ci-test": "npm install && npm run lint && npm test",
@@ -41,5 +42,9 @@
     "mz": "^2.4.0",
     "wav": "^1.0.0",
     "wav-decoder": "^1.1.0"
+  },
+  "dependencies": {
+    "nan": "^2.6.2",
+    "node-gyp": "^3.6.2"
   }
 }
