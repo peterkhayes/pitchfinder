@@ -8,11 +8,11 @@
     "lint": "standard",
     "test": "jasmine",
     "ci-test": "npm install && npm run lint && npm test",
-    "prepublish": "npm run lint && npm test && npm build"
+    "prepublish": "npm run lint && npm run build"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/peterkhayes/pitchfinder.git"
+    "url": "git+https://github.com/cristovao-trevisan/node-pitchfinder"
   },
   "keywords": [
     "pitch",
@@ -30,9 +30,9 @@
   "author": "Peter Hayes",
   "license": "GNU v3",
   "bugs": {
-    "url": "https://github.com/peterkhayes/pitchfinder/issues"
+    "url": "https://github.com/cristovao-trevisan/node-pitchfinder/issues"
   },
-  "homepage": "https://github.com/peterkhayes/pitchfinder#readme",
+  "homepage": "https://github.com/cristovao-trevisan/node-pitchfinder#readme",
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-eslint": "^7.2.3",

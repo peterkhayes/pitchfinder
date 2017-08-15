@@ -1,7 +1,7 @@
 const {MacLeod} = require('../../../build/Release/addon')
 
 module.exports = (options = {}) => {
-  const detector = new MacLeod(options.bufferSize, options.sampleRate, options.threshold, options.probabilityThreshold)
+  const detector = new MacLeod(options.bufferSize, options.sampleRate, options.cutoff, options.freqCutoff)
 
   return data => {
     let actualData = data
