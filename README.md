@@ -1,10 +1,12 @@
-[![Build Status](https://travis-ci.org/peterkhayes/pitchfinder.svg?branch=master)](https://travis-ci.org/peterkhayes/pitchfinder)  
+[![Build Status](https://travis-ci.org/peterkhayes/pitchfinder.svg?branch=master)](https://travis-ci.org/peterkhayes/pitchfinder)
 # pitchfinder
 A compilation of pitch detection algorithms for Javascript. Supports both the browser and node.
 
 ## A note on versions
 
 This library previous consisted of a single script tag to be included in the browser.  I'm deprecating that version and replacing it with a new, `npm`/`babel` version.  If you have been using the old version, please check out the `legacy` branch, which consists of the old code.  However, I will not be supporting it going forwards.  Version 2 is bringing many improvements, unit tests, and more.
+
+If you'd like a version that uses compiled C++ code and runs much faster, check out [this repo] (https://github.com/cristovao-trevisan/node-pitchfinder). However, it will not work in the browser.
 
 ## Provided pitch-finding algorithms
 - **YIN** - The best balance of accuracy and speed, in my experience.  Occasionally provides values that are wildly incorrect.
@@ -92,6 +94,6 @@ const moreAccurateFrequencies = Pitchfinder.frequencies(detectors, float32Array,
 - Enable requiring of single detectors.
 
 ## Thanks
-Several of these algorithms were ported from Jonas Six's excellent TarsosDSP library (written in Java).  If you're looking for a far deeper set of tools than this, check out his work [on his website](http://tarsos.0110.be/tag/TarsosDSP) or [on Github](https://github.com/JorenSix/TarsosDSP). 
+Several of these algorithms were ported from Jonas Six's excellent TarsosDSP library (written in Java).  If you're looking for a far deeper set of tools than this, check out his work [on his website](http://tarsos.0110.be/tag/TarsosDSP) or [on Github](https://github.com/JorenSix/TarsosDSP).
 
 Thanks to Aubio for his [YIN code](https://github.com/aubio/aubio/blob/master/src/pitch/pitchyin.c)
