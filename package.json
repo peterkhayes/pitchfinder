@@ -1,17 +1,18 @@
 {
-  "name": "pitchfinder",
-  "version": "2.0.4",
-  "description": "A pitch-detection library for node and the browser",
+  "name": "node-pitchfinder",
+  "version": "1.0.2",
+  "description": "A pitch-detection library for node (using C++ Addon)",
   "scripts": {
-    "build": "rm -rf ./lib && mkdir lib && babel src -d lib",
-    "lint": "eslint ./src",
-    "test": "mocha",
+    "clean": "rm -rf ./lib ./build",
+    "build": "npm run clean && node-gyp configure build && babel src -d lib",
+    "lint": "standard",
+    "test": "babel-node spec/support/run.js",
     "ci-test": "npm install && npm run lint && npm test",
-    "prepublish": "npm run lint && npm test && npm build"
+    "prepublish": "npm run lint && npm run build"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/peterkhayes/pitchfinder.git"
+    "url": "git+https://github.com/cristovao-trevisan/node-pitchfinder"
   },
   "keywords": [
     "pitch",
@@ -29,17 +30,32 @@
   "author": "Peter Hayes",
   "license": "GNU v3",
   "bugs": {
-    "url": "https://github.com/peterkhayes/pitchfinder/issues"
+    "url": "https://github.com/cristovao-trevisan/node-pitchfinder/issues"
   },
-  "homepage": "https://github.com/peterkhayes/pitchfinder#readme",
+  "homepage": "https://github.com/cristovao-trevisan/node-pitchfinder#readme",
   "devDependencies": {
-    "babel": "^5.8.20",
-    "babel-eslint": "^6.0.2",
-    "eslint": "^2.7.0",
-    "expect": "^1.16.0",
-    "mocha": "^2.4.5",
+    "babel-cli": "^6.24.1",
+    "babel-eslint": "^7.2.3",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "eslint": "^4.4.1",
+    "jasmine": "^2.7.0",
+    "jasmine-console-reporter": "^1.2.7",
     "mz": "^2.4.0",
+    "standard": "^10.0.3",
     "wav": "^1.0.0",
     "wav-decoder": "^1.1.0"
+  },
+  "dependencies": {
+    "nan": "^2.6.2",
+    "node-gyp": "^3.6.2"
+  },
+  "standard": {
+    "parser": "babel-eslint",
+    "env": "jasmine",
+    "ignore": [
+      "build",
+      "lib"
+    ]
   }
 }

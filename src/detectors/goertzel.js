@@ -48,7 +48,7 @@
 //         frequenciesToDetect[i] / sampleRate);
 //     precalculatedWnk[i] = Math.exp(-2 * Math.PI *
 //         frequenciesToDetect[i] / sampleRate);
-//   }    
+//   }
 
 //   return function(audioFloatBuffer) {
 //     var skn0, skn1, skn2,
