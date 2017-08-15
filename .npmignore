@@ -1,3 +1,4 @@
-src
+build
+lib
 npm-debug.log
 *.gch

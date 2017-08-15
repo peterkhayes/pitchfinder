@@ -117,6 +117,7 @@ void MacLeod::peakPicking() {
   }
 
   while (pos < bufferSize - 1) {
+    assert(nsdf[pos] >= 0);
     if (nsdf[pos] > nsdf[pos - 1] && nsdf[pos] >= nsdf[pos + 1]) {
       if (curMaxPos == 0) {
         // the first max (between zero crossings)
