@@ -1,12 +1,12 @@
 {
-  "name": "pitchfinder",
-  "version": "2.0.4",
-  "description": "A pitch-detection library for node and the browser",
+  "name": "node-pitchfinder",
+  "version": "1.0.0",
+  "description": "A pitch-detection library for node (using C++ Addon)",
   "scripts": {
     "clean": "rm -rf ./lib ./build",
     "build": "npm run clean && node-gyp configure build && babel src -d lib",
     "lint": "standard",
-    "test": "jasmine",
+    "test": "babel-node spec/support/run.js",
     "ci-test": "npm install && npm run lint && npm test",
     "prepublish": "npm run lint && npm run build"
   },

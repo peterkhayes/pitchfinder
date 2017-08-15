@@ -1,11 +1,7 @@
 [![Build Status](https://travis-ci.org/peterkhayes/pitchfinder.svg?branch=master)](https://travis-ci.org/cristovao-trevisan/node-pitchfinder)  
-# pitchfinder
+# node-pitchfinder
 A compilation of pitch detection algorithms for Node (Using native C++ Addon).
 Based on [pitchfinder](https://github.com/peterkhayes/pitchfinder)
-
-## A note on versions
-
-This library previous consisted of a single script tag to be included in the browser.  I'm deprecating that version and replacing it with a new, `npm`/`babel` version.  If you have been using the old version, please check out the `legacy` branch, which consists of the old code.  However, I will not be supporting it going forwards.  Version 2 is bringing many improvements, unit tests, and more.
 
 ## Provided pitch-finding algorithms
 - **YIN** - The best balance of accuracy and speed, in my experience.  Occasionally provides values that are wildly incorrect.
@@ -17,7 +13,7 @@ This library previous consisted of a single script tag to be included in the bro
 - **Goertzel** *(coming soon)*
 
 ## Installation
-`npm install --save pitchfinder`
+`npm install --save node-pitchfinder`
 
 ## Usage
 
@@ -25,7 +21,7 @@ This library previous consisted of a single script tag to be included in the bro
 ```javascript
 const fs = require('fs')
 const WavDecoder = require('wav-decoder')
-const Pitchfinder = require('pitchfinder')
+const Pitchfinder = require('node-pitchfinder')
 
 // see below for optional constructor parameters.
 const detectPitch = new Pitchfinder.YIN()
@@ -40,7 +36,7 @@ const pitch = detectPitch(float64Array) // null if pitch cannot be identified
 Set a tempo and a quantization interval, and an array of pitches at each interval will be returned.
 
 ```javascript
-const Pitchfinder = require('pitchfinder')
+const Pitchfinder = require('node-pitchfinder')
 const detectPitch = Pitchfinder.YIN()
 
 const frequencies = Pitchfinder.frequencies(detectPitch, float64Array, {
@@ -72,7 +68,7 @@ const moreAccurateFrequencies = Pitchfinder.frequencies(detectors, float64Array,
 - `sensitivity`
 - `ratio`
 
-## MacLeod
+### MacLeod
 - `bufferSize` - Maximum data size (default 1024)
 - `cutoff` - Defines the relative size the chosen peak (pitch) has. 0.93 means: choose
 the first peak that is higher than 93% of the highest peak detected. 93% is the default value used in the Tartini user interface.

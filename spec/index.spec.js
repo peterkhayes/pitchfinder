@@ -1,7 +1,8 @@
 const fs = require('mz/fs')
 const Pitchfinder = require('../src')
 
-const path = (...args) => require('path').resolve(__dirname, ...args)
+const resolve = require('path').resolve
+const path = resolve.bind(null, __dirname)
 const decode = (file) => require('wav-decoder').decode(file).then((decoded) => decoded.channelData[0])
 
 const { expectedAMDF, expectedDynamicWavelet, expectedYIN } = require('./constants')
