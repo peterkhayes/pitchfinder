@@ -1,16 +1,20 @@
-[![Build Status](https://travis-ci.org/peterkhayes/pitchfinder.svg?branch=master)](https://travis-ci.org/cristovao-trevisan/node-pitchfinder)  
+<p align="center">
+  <text>
+    [![Build Status](https://travis-ci.org/peterkhayes/pitchfinder.svg?branch=master)](https://travis-ci.org/cristovao-trevisan/node-pitchfinder.svg?branch=master)
+  </text>
+  <a href="https://standardjs.com"><img src="https://img.shields.io/badge/code_style-standard-brightgreen.svg" alt="Standard - JavaScript Style Guide"></a>
+</p>
 # node-pitchfinder
 A compilation of pitch detection algorithms for Node (Using native C++ Addon).
-Based on [pitchfinder](https://github.com/peterkhayes/pitchfinder)
+Based on [pitchfinder](https://github.com/peterkhayes/pitchfinder), but running a lot faster (because it's native)
 
 ## Provided pitch-finding algorithms
-- **YIN** - The best balance of accuracy and speed, in my experience.  Occasionally provides values that are wildly incorrect.
-- **AMDF** - Slow and only accurate to around +/- 2%, but finds a frequency more consistenly than others.
-- **Dynamic Wavelet** - Very fast, but struggles to identify lower frequencies.
 - **MacLeod** - Best results for instruments
-- **MacLeod w/ FFT** *(coming soon)*
-- **YIN w/ FFT** *(coming soon)*
-- **Goertzel** *(coming soon)*
+- **YIN** - The best balance of accuracy and speed, in my experience.  Occasionally provides values that are wildly incorrect.
+- **AMDF** - Slow and only accurate to around +/- 2%, but finds a frequency more consistenly than others. *NOT AN ADDON*
+- **Dynamic Wavelet** - Very fast, but struggles to identify lower frequencies. *NOT AN ADDON*
+- **YIN w/ FFT** *TODO*
+- **Goertzel** *TODO*
 
 ## Installation
 `npm install --save node-pitchfinder`
@@ -29,7 +33,7 @@ const detectPitch = new Pitchfinder.YIN()
 const buffer = fs.readFileSync(PATH_TO_FILE)
 const decoded = WavDecoder.decode(buffer) // get audio data from file using `wav-decoder`
 const float64Array = decoded.channelData[0] // get a single channel of sound
-const pitch = detectPitch(float64Array) // null if pitch cannot be identified
+const pitch = detectPitch(float64Array) // All detectors are using float64Array internally, but you can also give an ordinary array of numbers
 ```
 
 ### Finding a series of pitches
@@ -37,7 +41,7 @@ Set a tempo and a quantization interval, and an array of pitches at each interva
 
 ```javascript
 const Pitchfinder = require('node-pitchfinder')
-const detectPitch = Pitchfinder.YIN()
+const detectPitch = Pitchfinder.MacLeod()
 
 const frequencies = Pitchfinder.frequencies(detectPitch, float64Array, {
   tempo: 130, // in BPM, defaults to 120
@@ -51,7 +55,6 @@ const moreAccurateFrequencies = Pitchfinder.frequencies(detectors, float64Array,
   quantization: 4, // samples per beat, defaults to 4 (i.e. 16th notes)
 })
 ```
-
 
 ## Configuration
 

@@ -1,6 +1,6 @@
 {
   "name": "node-pitchfinder",
-  "version": "1.0.1-beta-1",
+  "version": "1.0.2",
   "description": "A pitch-detection library for node (using C++ Addon)",
   "scripts": {
     "clean": "rm -rf ./lib ./build",
