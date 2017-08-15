@@ -1,9 +1,8 @@
 <p align="center">
-  <text>
-    [![Build Status](https://travis-ci.org/peterkhayes/pitchfinder.svg?branch=master)](https://travis-ci.org/cristovao-trevisan/node-pitchfinder.svg?branch=master)
-  </text>
+  <a href="https://travis-ci.org/cristovao-trevisan/node-pitchfinde"><img src="https://travis-ci.org/peterkhayes/pitchfinder.svg?branch=master"></a>
   <a href="https://standardjs.com"><img src="https://img.shields.io/badge/code_style-standard-brightgreen.svg" alt="Standard - JavaScript Style Guide"></a>
 </p>
+
 # node-pitchfinder
 A compilation of pitch detection algorithms for Node (Using native C++ Addon).
 Based on [pitchfinder](https://github.com/peterkhayes/pitchfinder), but running a lot faster (because it's native)
