@@ -6,13 +6,14 @@ const path = (...args) => require("path").resolve(__dirname, ...args);
 const decode = (file) => require("wav-decoder").decode(file).then((decoded) => decoded.channelData[0]);
 
 describe("Pitchfinder", () => {
-  
+
   const detectors = {
     AMDF: Pitchfinder.AMDF(),
     DynamicWavelet: Pitchfinder.DynamicWavelet(),
-    YIN: Pitchfinder.YIN()
+    YIN: Pitchfinder.YIN(),
+    Macleod: Pitchfinder.Macleod(),
   };
-  
+
   const pitchSamples = fs.readdirSync(path("pitches"));
 
   describe("Detectors", () => {
