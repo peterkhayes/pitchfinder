@@ -1,6 +1,6 @@
 {
   "name": "pitchfinder",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "description": "A pitch-detection library for node and the browser",
   "scripts": {
     "build": "rm -rf ./lib && mkdir lib && babel src -d lib",
@@ -33,8 +33,9 @@
   },
   "homepage": "https://github.com/peterkhayes/pitchfinder#readme",
   "devDependencies": {
-    "babel": "^5.8.20",
+    "babel-cli": "^6.26.0",
     "babel-eslint": "^6.0.2",
+    "babel-preset-env": "^1.6.1",
     "eslint": "^2.7.0",
     "expect": "^1.16.0",
     "mocha": "^2.4.5",
