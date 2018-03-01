@@ -32,7 +32,7 @@ const Pitchfinder = require("pitchfinder");
 const detectPitch = new Pitchfinder.YIN();
 
 const buffer = fs.readFileSync(PATH_TO_FILE);
-const decoded = WavDecoder.decode(buffer); // get audio data from file using `wav-decoder`
+const decoded = WavDecoder.decode.sync(buffer); // get audio data from file using `wav-decoder`
 const float32Array = decoded.channelData[0]; // get a single channel of sound
 const pitch = detectPitch(float32Array); // null if pitch cannot be identified
 ```
