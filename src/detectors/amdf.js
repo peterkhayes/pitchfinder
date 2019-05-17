@@ -12,8 +12,8 @@ module.exports = function(config = {}) {
   const sensitivity = config.sensitivity || DEFAULT_SENSITIVITY;
   const ratio = config.ratio || DEFAULT_RATIO;
   const amd = [];
-  const maxPeriod = Math.round(sampleRate / minFrequency + 0.5);
-  const minPeriod = Math.round(sampleRate / maxFrequency + 0.5);
+  const maxPeriod = Math.ceil(sampleRate / minFrequency);
+  const minPeriod = Math.floor(sampleRate / maxFrequency);
 
   return function AMDFDetector (float32AudioBuffer) {
     "use strict";
