@@ -36,7 +36,41 @@ describe("Pitchfinder", () => {
         });
       });
     });
+  });
 
+  describe("AMDF minimum/maximum frequency parameters", () => {
+    const detector = (minFreq, maxFreq) => Pitchfinder.AMDF({
+      minFrequency : minFreq,
+      maxFrequency : maxFreq});
+      pitchSamples.forEach((fileName) => {
+        const [hz, type] = fileName.replace(".wav", "").split("_");
+	const hz_numb = Number(hz);
+	const freqOffset = 100;
+	const params = [
+	  {
+            minFreq : hz_numb,
+            maxFreq : hz_numb+freqOffset
+	  },
+	  {
+            minFreq : hz_numb-freqOffset,
+	    maxFreq : hz_numb
+	  }
+        ];
+        params.forEach((freqs) => {
+          const minFreq = freqs.minFreq;
+          const maxFreq = freqs.maxFreq;
+          it(`Detects ${type} wave at ${hz} hz with minimumFrequency ${minFreq} hz and maximumFrequency ${maxFreq} hz`, () => {
+            return fs.readFile(path("pitches", fileName))
+              .then(decode)
+              .then(detector(minFreq, maxFreq))
+              .then((pitch) => {
+                if (pitch == null) throw new Error("No frequency detected");
+                const diff = Math.abs(pitch - hz_numb);
+                if (diff > 10) throw new Error(`Too large an error - detected wave at ${hz} as ${pitch} hz`);
+              });
+           });
+        });
+     });
   });
 
   describe("Frequencies tool", () => {
