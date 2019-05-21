@@ -50,6 +50,12 @@ module.exports = function(config) {
   const nsdf = new Float32Array(bufferSize);
 
   /**
+   * Contains a sum of squares of the Buffer, for improving performance
+   * (avoids redoing math in the normalized square difference function)
+   */
+  const squaredBufferSum = new Float32Array(bufferSize);
+
+  /**
    * The x and y coordinate of the top of the curve (nsdf).
    */
   let turningPointX;
@@ -82,12 +88,19 @@ module.exports = function(config) {
    * optimized by using an FFT. The results should remain the same.
    */
   const normalizedSquareDifference = function(float32AudioBuffer) {
+    let acf;
+    let divisorM;
+    squaredBufferSum[0] = float32AudioBuffer[0] * float32AudioBuffer[0];
+    for (let i = 1; i < float32AudioBuffer.length; i += 1) {
+        squaredBufferSum[i] = (float32AudioBuffer[i] * float32AudioBuffer[i]) + squaredBufferSum[i - 1];
+    }
     for (let tau = 0; tau < float32AudioBuffer.length; tau++) {
-      let acf = 0;
-      let divisorM = 0;
+      acf = 0;
+      divisorM = squaredBufferSum[float32AudioBuffer.length - 1 - tau]
+          + squaredBufferSum[float32AudioBuffer.length - 1]
+          - squaredBufferSum[tau];
       for (let i = 0; i < float32AudioBuffer.length - tau; i++) {
         acf += float32AudioBuffer[i] * float32AudioBuffer[i+tau];
-        divisorM += float32AudioBuffer[i] * float32AudioBuffer[i] + float32AudioBuffer[i + tau] * float32AudioBuffer[i + tau];
       }
       nsdf[tau] = 2 * acf / divisorM;
     }
