@@ -12,6 +12,7 @@ describe("Pitchfinder", () => {
     DynamicWavelet: Pitchfinder.DynamicWavelet(),
     YIN: Pitchfinder.YIN(),
     Macleod: Pitchfinder.Macleod(),
+    ACF2PLUS: Pitchfinder.ACF2PLUS(),
   };
 
   const pitchSamples = fs.readdirSync(path("pitches"));
