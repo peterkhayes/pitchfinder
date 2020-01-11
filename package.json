@@ -1,6 +1,6 @@
 {
   "name": "pitchfinder",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "A pitch-detection library for node and the browser",
   "scripts": {
     "build": "rm -rf ./lib && mkdir lib && babel src -d lib",
