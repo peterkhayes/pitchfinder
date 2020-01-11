@@ -39,7 +39,6 @@ module.exports = function(config = {}) {
     // Set buffer size to the highest power of two below the provided buffer's length.
     let bufferSize;
     for (bufferSize = 1; bufferSize < float32AudioBuffer.length; bufferSize *= 2);
-    bufferSize /= 2;
     
     // Set up the yinBuffer as described in step one of the YIN paper.
     const yinBufferLength = bufferSize / 2;
