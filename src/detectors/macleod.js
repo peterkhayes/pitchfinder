@@ -1,6 +1,4 @@
-
 module.exports = function(config) {
-
   config = config || {};
 
   /**
@@ -92,17 +90,19 @@ module.exports = function(config) {
     let divisorM;
     squaredBufferSum[0] = float32AudioBuffer[0] * float32AudioBuffer[0];
     for (let i = 1; i < float32AudioBuffer.length; i += 1) {
-        squaredBufferSum[i] = (float32AudioBuffer[i] * float32AudioBuffer[i]) + squaredBufferSum[i - 1];
+      squaredBufferSum[i] =
+        float32AudioBuffer[i] * float32AudioBuffer[i] + squaredBufferSum[i - 1];
     }
     for (let tau = 0; tau < float32AudioBuffer.length; tau++) {
       acf = 0;
-      divisorM = squaredBufferSum[float32AudioBuffer.length - 1 - tau]
-          + squaredBufferSum[float32AudioBuffer.length - 1]
-          - squaredBufferSum[tau];
+      divisorM =
+        squaredBufferSum[float32AudioBuffer.length - 1 - tau] +
+        squaredBufferSum[float32AudioBuffer.length - 1] -
+        squaredBufferSum[tau];
       for (let i = 0; i < float32AudioBuffer.length - tau; i++) {
-        acf += float32AudioBuffer[i] * float32AudioBuffer[i+tau];
+        acf += float32AudioBuffer[i] * float32AudioBuffer[i + tau];
       }
-      nsdf[tau] = 2 * acf / divisorM;
+      nsdf[tau] = (2 * acf) / divisorM;
     }
   };
 
@@ -112,17 +112,17 @@ module.exports = function(config) {
    */
   const parabolicInterpolation = function(tau) {
     const nsdfa = nsdf[tau - 1],
-        nsdfb = nsdf[tau],
-        nsdfc = nsdf[tau + 1],
-        bValue = tau,
-        bottom = nsdfc + nsdfa - 2 * nsdfb;
+      nsdfb = nsdf[tau],
+      nsdfc = nsdf[tau + 1],
+      bValue = tau,
+      bottom = nsdfc + nsdfa - 2 * nsdfb;
     if (bottom === 0) {
       turningPointX = bValue;
       turningPointY = nsdfb;
     } else {
       const delta = nsdfa - nsdfc;
       turningPointX = bValue + delta / (2 * bottom);
-      turningPointY = nsdfb - delta * delta / (8 * bottom);
+      turningPointY = nsdfb - (delta * delta) / (8 * bottom);
     }
   };
 
@@ -176,7 +176,6 @@ module.exports = function(config) {
   };
 
   return function(float32AudioBuffer) {
-
     // 0. Clear old results.
     let pitch;
     maxPositions = [];
@@ -221,14 +220,13 @@ module.exports = function(config) {
       }
 
       const period = periodEstimates[periodIndex],
-          pitchEstimate = sampleRate / period;
+        pitchEstimate = sampleRate / period;
 
       if (pitchEstimate > LOWER_PITCH_CUTOFF) {
         pitch = pitchEstimate;
       } else {
         pitch = -1;
       }
-
     } else {
       // no pitch detected.
       pitch = -1;

@@ -37,9 +37,12 @@
     "babel-eslint": "^10.0.3",
     "babel-preset-env": "^1.6.1",
     "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.9.0",
+    "eslint-plugin-prettier": "^3.1.2",
     "expect": "^24.9.0",
     "mocha": "^7.0.0",
     "mz": "^2.4.0",
+    "prettier": "^1.19.1",
     "wav": "^1.0.0",
     "wav-decoder": "^1.1.0"
   }

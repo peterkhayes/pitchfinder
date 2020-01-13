@@ -4,12 +4,10 @@ const MAX_F = 3000;
 const DIFFERENCE_LEVELS_N = 3;
 const MAXIMA_THRESHOLD_RATIO = 0.75;
 
-
 module.exports = function(config = {}) {
-
   const sampleRate = config.sampleRate || DEFAULT_SAMPLE_RATE;
 
-  return function DynamicWaveletDetector (float32AudioBuffer) {
+  return function DynamicWaveletDetector(float32AudioBuffer) {
     "use strict";
 
     const mins = [];
@@ -33,7 +31,7 @@ module.exports = function(config = {}) {
     minValue -= theDC;
     maxValue -= theDC;
     const amplitudeMax = maxValue > -1 * minValue ? maxValue : -1 * minValue;
-    const amplitudeThreshold = amplitudeMax*MAXIMA_THRESHOLD_RATIO;
+    const amplitudeThreshold = amplitudeMax * MAXIMA_THRESHOLD_RATIO;
 
     // levels, start without downsampling...
     let curLevel = 0;
@@ -58,7 +56,7 @@ module.exports = function(config = {}) {
 
       for (let i = 2; i < curSamNb; i++) {
         const si = float32AudioBuffer[i] - theDC;
-        const si1 = float32AudioBuffer[i-1] - theDC;
+        const si1 = float32AudioBuffer[i - 1] - theDC;
 
         if (si1 <= 0 && si > 0) findMax = true;
         if (si1 >= 0 && si < 0) findMin = true;
@@ -120,7 +118,7 @@ module.exports = function(config = {}) {
         let summed = 0;
         for (let j = -1 * delta; j <= delta; j++) {
           if (i + j >= 0 && i + j < curSamNb) {
-            summed += distances[i+j];
+            summed += distances[i + j];
           }
         }
 
@@ -152,7 +150,7 @@ module.exports = function(config = {}) {
 
       // Continue the levels?
       if (curModeDistance > -1) {
-        if (Math.abs(distAvg*2 - curModeDistance) <= 2 * delta) {
+        if (Math.abs(distAvg * 2 - curModeDistance) <= 2 * delta) {
           // two consecutive similar mode distances : ok !
           freq = sampleRate / (Math.pow(2, curLevel - 1) * curModeDistance);
           break;
@@ -173,8 +171,9 @@ module.exports = function(config = {}) {
       if (curSamNb === distances.length) {
         newFloat32AudioBuffer = new Float32Array(curSamNb / 2);
       }
-      for (let i = 0; i < curSamNb/2; i++) {
-        newFloat32AudioBuffer[i] = (float32AudioBuffer[2*i] + float32AudioBuffer[2*i + 1])/2;
+      for (let i = 0; i < curSamNb / 2; i++) {
+        newFloat32AudioBuffer[i] =
+          (float32AudioBuffer[2 * i] + float32AudioBuffer[2 * i + 1]) / 2;
       }
       float32AudioBuffer = newFloat32AudioBuffer;
       curSamNb /= 2;

@@ -12,5 +12,5 @@ module.exports = {
   DynamicWavelet,
   Macleod,
   ACF2PLUS,
-  frequencies,
+  frequencies
 };

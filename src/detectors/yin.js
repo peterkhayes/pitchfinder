@@ -1,4 +1,3 @@
-
 /*
   Copyright (C) 2003-2009 Paul Brossier <piem@aubio.org>
   This file is part of aubio.
@@ -16,31 +15,35 @@
 
 /* This algorithm was developed by A. de Cheveigné and H. Kawahara and
  * published in:
- * 
+ *
  * de Cheveigné, A., Kawahara, H. (2002) "YIN, a fundamental frequency
- * estimator for speech and music", J. Acoust. Soc. Am. 111, 1917-1930.  
+ * estimator for speech and music", J. Acoust. Soc. Am. 111, 1917-1930.
  *
  * see http://recherche.ircam.fr/equipes/pcm/pub/people/cheveign.html
  */
 
-const DEFAULT_THRESHOLD = 0.10;
+const DEFAULT_THRESHOLD = 0.1;
 const DEFAULT_SAMPLE_RATE = 44100;
 const DEFAULT_PROBABILITY_THRESHOLD = 0.1;
 
 module.exports = function(config = {}) {
-
   const threshold = config.threshold || DEFAULT_THRESHOLD;
   const sampleRate = config.sampleRate || DEFAULT_SAMPLE_RATE;
-  const probabilityThreshold = config.probabilityThreshold || DEFAULT_PROBABILITY_THRESHOLD;
+  const probabilityThreshold =
+    config.probabilityThreshold || DEFAULT_PROBABILITY_THRESHOLD;
 
-  return function YINDetector (float32AudioBuffer) {
+  return function YINDetector(float32AudioBuffer) {
     "use strict";
 
     // Set buffer size to the highest power of two below the provided buffer's length.
     let bufferSize;
-    for (bufferSize = 1; bufferSize < float32AudioBuffer.length; bufferSize *= 2);
+    for (
+      bufferSize = 1;
+      bufferSize < float32AudioBuffer.length;
+      bufferSize *= 2
+    );
     bufferSize /= 2;
-    
+
     // Set up the yinBuffer as described in step one of the YIN paper.
     const yinBufferLength = bufferSize / 2;
     const yinBuffer = new Float32Array(yinBufferLength);
@@ -72,7 +75,10 @@ module.exports = function(config = {}) {
     // we can start at the third position.
     for (tau = 2; tau < yinBufferLength; tau++) {
       if (yinBuffer[tau] < threshold) {
-        while (tau + 1 < yinBufferLength && yinBuffer[tau + 1] < yinBuffer[tau]) {
+        while (
+          tau + 1 < yinBufferLength &&
+          yinBuffer[tau + 1] < yinBuffer[tau]
+        ) {
           tau++;
         }
         // found tau, exit loop and return
@@ -98,7 +104,6 @@ module.exports = function(config = {}) {
     if (probability < probabilityThreshold) {
       return null;
     }
-
 
     /**
      * Implements step 5 of the AUBIO_YIN paper. It refines the estimated tau

@@ -5,7 +5,6 @@ const DEFAULT_SENSITIVITY = 0.1;
 const DEFAULT_SAMPLE_RATE = 44100;
 
 module.exports = function(config = {}) {
-
   const sampleRate = config.sampleRate || DEFAULT_SAMPLE_RATE;
   const minFrequency = config.minFrequency || DEFAULT_MIN_FREQUENCY;
   const maxFrequency = config.maxFrequency || DEFAULT_MAX_FREQUENCY;
@@ -20,11 +19,11 @@ module.exports = function(config = {}) {
   const maxPeriod = Math.ceil(sampleRate / minFrequency);
   const minPeriod = Math.floor(sampleRate / maxFrequency);
 
-  return function AMDFDetector (float32AudioBuffer) {
+  return function AMDFDetector(float32AudioBuffer) {
     "use strict";
 
     const maxShift = float32AudioBuffer.length;
-    
+
     let t = 0;
     let minval = Infinity;
     let maxval = -Infinity;
@@ -33,7 +32,11 @@ module.exports = function(config = {}) {
     // Find the average magnitude difference for each possible period offset.
     for (i = 0; i < maxShift; i++) {
       if (minPeriod <= i && i <= maxPeriod) {
-        for (aux1 = 0, aux2 = i, t = 0, frames1 = [], frames2 = []; aux1 < maxShift - i; t++, aux2++, aux1++) {
+        for (
+          aux1 = 0, aux2 = i, t = 0, frames1 = [], frames2 = [];
+          aux1 < maxShift - i;
+          t++, aux2++, aux1++
+        ) {
           frames1[t] = float32AudioBuffer[aux1];
           frames2[t] = float32AudioBuffer[aux2];
         }
@@ -59,7 +62,7 @@ module.exports = function(config = {}) {
       if (amd[j] > maxval) maxval = amd[j];
     }
 
-    const cutoff = Math.round((sensitivity * (maxval - minval)) + minval);
+    const cutoff = Math.round(sensitivity * (maxval - minval) + minval);
     for (j = minPeriod; j <= maxPeriod && amd[j] > cutoff; j++);
 
     const search_length = minPeriod / 2;
