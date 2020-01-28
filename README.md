@@ -14,7 +14,7 @@ If you'd like a version that uses compiled C++ code and runs much faster, check 
 - **Dynamic Wavelet** - Very fast, but struggles to identify lower frequencies.
 - **YIN w/ FFT** *(coming soon)*
 - **Goertzel** *(coming soon)*
-- **MacLeod** *(coming soon)*
+- **Mcleod** *(coming soon)*
 
 ## Installation
 `npm install --save pitchfinder`
