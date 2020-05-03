@@ -8,7 +8,7 @@ const DEFAULT_PARAMS: ACF2Params = {
   sampleRate: 44100
 };
 
-export function acf2plus(
+export function ACF2PLUS(
   params: Partial<ACF2Params> = DEFAULT_PARAMS
 ): PitchDetector {
   const config = {
@@ -54,7 +54,7 @@ export function acf2plus(
     const frames = float32AudioBuffer.slice(aux1, aux2);
     const framesLength = frames.length;
 
-    const calcSub = new Array(framesLength).fill(0);
+    const calcSub = new Array<number>(framesLength).fill(0);
     for (i = 0; i < framesLength; i++)
       for (j = 0; j < framesLength - i; j++)
         calcSub[i] = calcSub[i] + frames[j] * frames[j + i];

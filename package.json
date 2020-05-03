@@ -33,6 +33,8 @@
   },
   "homepage": "https://github.com/peterkhayes/pitchfinder#readme",
   "devDependencies": {
+    "@types/mocha": "^7.0.2",
+    "@types/node": "^13.13.4",
     "@typescript-eslint/eslint-plugin": "^2.30.0",
     "@typescript-eslint/parser": "^2.30.0",
     "eslint": "^6.8.0",
@@ -42,6 +44,7 @@
     "mocha": "^7.0.0",
     "mz": "^2.4.0",
     "prettier": "^1.19.1",
+    "ts-node": "^8.10.1",
     "typescript": "^3.8.3",
     "wav": "^1.0.0",
     "wav-decoder": "^1.1.0"
