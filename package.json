@@ -3,7 +3,7 @@
   "version": "2.2.1",
   "description": "A pitch-detection library for node and the browser",
   "scripts": {
-    "build": "rm -rf ./lib && mkdir lib && babel src -d lib",
+    "build": "rm -rf ./lib && mkdir lib && tsc",
     "lint": "eslint ./src",
     "test": "mocha",
     "ci-test": "npm install && npm run lint && npm test",
@@ -43,6 +43,7 @@
     "mocha": "^7.0.0",
     "mz": "^2.4.0",
     "prettier": "^1.19.1",
+    "typescript": "^3.8.3",
     "wav": "^1.0.0",
     "wav-decoder": "^1.1.0"
   }
