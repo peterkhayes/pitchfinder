@@ -1,13 +1,17 @@
 import { PitchDetector } from "../detectors/types";
 
+const DEFAULT_TEMPO = 120;
+const DEFAULT_QUANTIZATION = 4;
+const DEFAULT_SAMPLE_RATE = 44100;
+
 function pitchConsensus(
   detectors: PitchDetector[],
   chunk: Float32Array
-): number | null {
+): number {
   const pitches: number[] = detectors
-    .map((fn: PitchDetector) => fn(chunk))
+    .map(fn => fn(chunk))
     .filter(Boolean)
-    .sort() as number[];
+    .sort((a, b) => (a < b ? -1 : 1));
 
   // In the case of one pitch, return it.
   if (pitches.length === 1) {

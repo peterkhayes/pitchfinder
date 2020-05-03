@@ -29,8 +29,8 @@ export function Macleod(
   params: Partial<MacleodConfig> = {}
 ): ProbabalisticPitchDetector {
   const config: MacleodConfig = {
-    ...params,
-    ...DEFAULT_MACLEOD_PARAMS
+    ...DEFAULT_MACLEOD_PARAMS,
+    ...params
   };
 
   const { bufferSize, cutoff, sampleRate } = config;

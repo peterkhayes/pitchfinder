@@ -88,7 +88,8 @@ describe("Pitchfinder", () => {
   describe("Frequencies tool", () => {
     describe("C-major scale, electric piano, quarter notes, 120 bpm", () => {
       const sample = "c_major_scale_electric_piano_120.wav";
-      const round = x => (x == null ? null : Number(x.toFixed(4)));
+      const round = (x: number | null): number | null =>
+        x == null ? null : Number(x.toFixed(4));
 
       // The actual frequencies are: 261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88, and 523.25
 
