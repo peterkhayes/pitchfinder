@@ -12,8 +12,8 @@ function pitchConsensus(
 ): number {
   const pitches: number[] = detectors
     .map(fn => fn(chunk))
-    .filter(Boolean)
-    .sort((a, b) => (a < b ? -1 : 1));
+    .filter(<T>(value: T | null): value is T => value !== null)
+    .sort((a: number, b: number) => (a < b ? -1 : 1));
 
   // In the case of one pitch, return it.
   if (pitches.length === 1) {
@@ -53,7 +53,7 @@ export function frequencies(
   detector: PitchDetector | PitchDetector[],
   float32AudioBuffer: Float32Array,
   options: Partial<FrequenciesParams> = {}
-): number[] {
+): (number | null)[] {
   const config = {
     ...DEFAULT_FREQUENCIES_PARAMS,
     ...options
@@ -70,7 +70,7 @@ export function frequencies(
     getPitch = detector;
   }
 
-  const pitches: number[] = [];
+  const pitches: (number | null)[] = [];
   for (let i = 0, max = bufferLength - chunkSize; i <= max; i += chunkSize) {
     const chunk = float32AudioBuffer.slice(i, i + chunkSize);
     const pitch = getPitch(chunk);

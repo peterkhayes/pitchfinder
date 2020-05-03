@@ -61,13 +61,13 @@ export function Macleod(
   /**
    * The x and y coordinate of the top of the curve (nsdf).
    */
-  let turningPointX;
-  let turningPointY;
+  let turningPointX: number;
+  let turningPointY: number;
 
   /**
    * A list with minimum and maximum values of the nsdf curve.
    */
-  let maxPositions = [];
+  let maxPositions: number[] = [];
 
   /**
    * A list of estimates of the period of the signal (in samples).

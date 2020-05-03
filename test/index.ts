@@ -3,6 +3,7 @@ import expect from "expect";
 import Pitchfinder from "../src";
 import { resolve } from "path";
 import WavDecoder from "wav-decoder";
+import { PitchDetector } from "../src/detectors/types";
 
 const path = (...args: string[]): string => resolve(__dirname, ...args);
 const decode = async (buffer: Buffer): Promise<Float32Array> => {
@@ -25,7 +26,7 @@ describe("Pitchfinder", () => {
 
   describe("Detectors", () => {
     Object.keys(detectors).forEach(name => {
-      const detector = detectors[name];
+      const detector: PitchDetector = detectors[name];
       describe(name, () => {
         pitchSamples.forEach(fileName => {
           const [hz, type] = fileName.replace(".wav", "").split("_");
