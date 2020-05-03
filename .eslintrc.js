@@ -1,17 +1,12 @@
 module.exports = {
-  parser: "babel-eslint",
-  plugins: ["prettier"],
-  ecmaFeatures: {
-    modules: true,
-  },
+  parser: "@typescript-eslint/parser",
+  plugins: ["prettier", "@typescript-eslint"],
   extends: [
     "eslint:recommended",
     "plugin:prettier/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
   ],
-  env: {
-    commonjs: true,
-    es6: true,
-  },
   rules: {
     "prettier/prettier": "error",
     "no-constant-condition": "off",
