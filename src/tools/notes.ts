@@ -1,7 +1,7 @@
-// const teoria = require("teoria");
-// const frequencies = require("./frequencies");
+// import teoria from "teoria";
+// import frequencies from "./frequencies";
 
-// module.exports = function(detector, float32AudioBuffer, options) {
+// export default function(detector, float32AudioBuffer, options) {
 //   // const key = options.key || null;
 //   // const mode = (key && options.mode) || null;
 //   // const merge = options.merge || false;

@@ -26,7 +26,7 @@ const DEFAULT_THRESHOLD = 0.1;
 const DEFAULT_SAMPLE_RATE = 44100;
 const DEFAULT_PROBABILITY_THRESHOLD = 0.1;
 
-module.exports = function(config = {}) {
+export default function(config = {}) {
   const threshold = config.threshold || DEFAULT_THRESHOLD;
   const sampleRate = config.sampleRate || DEFAULT_SAMPLE_RATE;
   const probabilityThreshold =

@@ -36,7 +36,7 @@ function pitchConsensus(detectors, chunk) {
   }
 }
 
-module.exports = function(detector, float32AudioBuffer, options = {}) {
+export default function(detector, float32AudioBuffer, options = {}) {
   const tempo = options.tempo || DEFAULT_TEMPO;
   const quantization = options.quantization || DEFAULT_QUANTIZATION;
   const sampleRate = options.sampleRate || DEFAULT_SAMPLE_RATE;

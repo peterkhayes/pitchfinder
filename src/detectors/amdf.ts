@@ -4,7 +4,7 @@ const DEFAULT_RATIO = 5;
 const DEFAULT_SENSITIVITY = 0.1;
 const DEFAULT_SAMPLE_RATE = 44100;
 
-module.exports = function(config = {}) {
+export default function(config = {}) {
   const sampleRate = config.sampleRate || DEFAULT_SAMPLE_RATE;
   const minFrequency = config.minFrequency || DEFAULT_MIN_FREQUENCY;
   const maxFrequency = config.maxFrequency || DEFAULT_MAX_FREQUENCY;

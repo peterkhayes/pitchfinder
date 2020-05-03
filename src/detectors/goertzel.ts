@@ -1,5 +1,5 @@
 // TODO: Make me work
-// module.exports = function(frequencies, config) {
+// export default function(frequencies, config) {
 //   "use strict";
 //   config = config || {};
 

@@ -4,7 +4,7 @@ const MAX_F = 3000;
 const DIFFERENCE_LEVELS_N = 3;
 const MAXIMA_THRESHOLD_RATIO = 0.75;
 
-module.exports = function(config = {}) {
+export default function(config = {}) {
   const sampleRate = config.sampleRate || DEFAULT_SAMPLE_RATE;
 
   return function DynamicWaveletDetector(float32AudioBuffer) {

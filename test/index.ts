@@ -1,6 +1,6 @@
-const fs          = require("mz/fs");
-const expect      = require("expect");
-const Pitchfinder = require("../src");
+import fs from "ms/fs";
+import expect from "expect";
+import Pitchfinder from "../src";
 
 const path = (...args) => require("path").resolve(__dirname, ...args);
 const decode = (file) => require("wav-decoder").decode(file).then((decoded) => decoded.channelData[0]);

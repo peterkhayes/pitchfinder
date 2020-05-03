@@ -1,6 +1,6 @@
 const DEFAULT_SAMPLE_RATE = 44100;
 
-module.exports = function(config = {}) {
+export default function(config = {}) {
   const sampleRate = config.sampleRate || DEFAULT_SAMPLE_RATE;
 
   // Implements the ACF2+ algorithm
