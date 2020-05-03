@@ -13,6 +13,8 @@
   along with aubio.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+import { PitchDetector } from "./types";
+
 /* This algorithm was developed by A. de Cheveigné and H. Kawahara and
  * published in:
  *
@@ -22,19 +24,26 @@
  * see http://recherche.ircam.fr/equipes/pcm/pub/people/cheveign.html
  */
 
-const DEFAULT_THRESHOLD = 0.1;
-const DEFAULT_SAMPLE_RATE = 44100;
-const DEFAULT_PROBABILITY_THRESHOLD = 0.1;
+interface YinParams {
+  threshold: number;
+  sampleRate: number;
+  probabilityThreshold: number;
+}
 
-export default function(config = {}) {
-  const threshold = config.threshold || DEFAULT_THRESHOLD;
-  const sampleRate = config.sampleRate || DEFAULT_SAMPLE_RATE;
-  const probabilityThreshold =
-    config.probabilityThreshold || DEFAULT_PROBABILITY_THRESHOLD;
+const DEFAULT_YIN_PARAMS = {
+  threshold: 0.1,
+  sampleRate: 44100,
+  probabilityThreshold: 0.1
+};
 
-  return function YINDetector(float32AudioBuffer) {
-    "use strict";
+export function YIN(params: Partial<YinParams> = {}): PitchDetector {
+  const config: YinParams = {
+    ...DEFAULT_YIN_PARAMS,
+    ...params
+  };
+  const { threshold, sampleRate, probabilityThreshold } = config;
 
+  return function YINDetector(float32AudioBuffer: Float32Array): number | null {
     // Set buffer size to the highest power of two below the provided buffer's length.
     let bufferSize;
     for (
@@ -48,7 +57,8 @@ export default function(config = {}) {
     const yinBufferLength = bufferSize / 2;
     const yinBuffer = new Float32Array(yinBufferLength);
 
-    let probability, tau;
+    let probability = 0,
+      tau;
 
     // Compute the difference function as described in step 2 of the YIN paper.
     for (let t = 0; t < yinBufferLength; t++) {
@@ -96,7 +106,7 @@ export default function(config = {}) {
     }
 
     // if no pitch found, return null.
-    if (tau == yinBufferLength || yinBuffer[tau] >= threshold) {
+    if (tau === yinBufferLength || yinBuffer[tau] >= threshold) {
       return null;
     }
 
@@ -146,4 +156,4 @@ export default function(config = {}) {
 
     return sampleRate / betterTau;
   };
-};
+}

@@ -1,12 +1,13 @@
-const DEFAULT_TEMPO = 120;
-const DEFAULT_QUANTIZATION = 4;
-const DEFAULT_SAMPLE_RATE = 44100;
+import { PitchDetector } from "../detectors/types";
 
-function pitchConsensus(detectors, chunk) {
-  const pitches = detectors
-    .map(fn => fn(chunk))
+function pitchConsensus(
+  detectors: PitchDetector[],
+  chunk: Float32Array
+): number | null {
+  const pitches: number[] = detectors
+    .map((fn: PitchDetector) => fn(chunk))
     .filter(Boolean)
-    .sort((a, b) => (a < b ? -1 : 1));
+    .sort() as number[];
 
   // In the case of one pitch, return it.
   if (pitches.length === 1) {
@@ -36,10 +37,28 @@ function pitchConsensus(detectors, chunk) {
   }
 }
 
-export default function(detector, float32AudioBuffer, options = {}) {
-  const tempo = options.tempo || DEFAULT_TEMPO;
-  const quantization = options.quantization || DEFAULT_QUANTIZATION;
-  const sampleRate = options.sampleRate || DEFAULT_SAMPLE_RATE;
+interface FrequenciesParams {
+  tempo: number;
+  quantization: number;
+  sampleRate: number;
+}
+
+export const DEFAULT_FREQUENCIES_PARAMS: FrequenciesParams = {
+  tempo: 120,
+  quantization: 4,
+  sampleRate: 44100
+};
+
+export function frequencies(
+  detector: PitchDetector | PitchDetector[],
+  float32AudioBuffer: Float32Array,
+  options: Partial<FrequenciesParams> = {}
+): number[] {
+  const config = {
+    ...DEFAULT_FREQUENCIES_PARAMS,
+    ...options
+  };
+  const { tempo, quantization, sampleRate } = config;
 
   const bufferLength = float32AudioBuffer.length;
   const chunkSize = Math.round((sampleRate * 60) / (quantization * tempo));
@@ -51,7 +70,7 @@ export default function(detector, float32AudioBuffer, options = {}) {
     getPitch = detector;
   }
 
-  const pitches = [];
+  const pitches: number[] = [];
   for (let i = 0, max = bufferLength - chunkSize; i <= max; i += chunkSize) {
     const chunk = float32AudioBuffer.slice(i, i + chunkSize);
     const pitch = getPitch(chunk);
@@ -59,4 +78,4 @@ export default function(detector, float32AudioBuffer, options = {}) {
   }
 
   return pitches;
-};
+}

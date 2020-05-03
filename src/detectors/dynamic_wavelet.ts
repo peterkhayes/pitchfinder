@@ -1,15 +1,30 @@
-const DEFAULT_SAMPLE_RATE = 44100;
+import { PitchDetector } from "./types";
+
 const MAX_FLWT_LEVELS = 6;
 const MAX_F = 3000;
 const DIFFERENCE_LEVELS_N = 3;
 const MAXIMA_THRESHOLD_RATIO = 0.75;
 
-export default function(config = {}) {
-  const sampleRate = config.sampleRate || DEFAULT_SAMPLE_RATE;
+interface DynamicWaveletConfig {
+  sampleRate: number;
+}
 
-  return function DynamicWaveletDetector(float32AudioBuffer) {
-    "use strict";
+const DEFAULT_DYNAMIC_WAVELET_CONFIG: DynamicWaveletConfig = {
+  sampleRate: 44100
+};
 
+export function DynamicWavelet(
+  params: Partial<DynamicWaveletConfig> = {}
+): PitchDetector {
+  const config: DynamicWaveletConfig = {
+    ...DEFAULT_DYNAMIC_WAVELET_CONFIG,
+    ...params
+  };
+  const { sampleRate } = config;
+
+  return function DynamicWaveletDetector(
+    float32AudioBuffer: Float32Array
+  ): number | null {
     const mins = [];
     const maxs = [];
     const bufferLength = float32AudioBuffer.length;
@@ -181,4 +196,4 @@ export default function(config = {}) {
 
     return freq;
   };
-};
+}

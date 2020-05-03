@@ -1,16 +1,16 @@
-import AMDF from "./detectors/amdf";
-import YIN from "./detectors/yin";
-import DynamicWavelet from "./detectors/dynamic_wavelet";
-import Macleod from "./detectors/macleod";
-import ACF2PLUS from "./detectors/acf2plus";
+import {YIN} from './detectors/yin';
+import {AMDF} from './detectors/amdf';
+import {acf2plus} from './detectors/acf2plus';
+import {DynamicWavelet} from './detectors/dynamic_wavelet';
+import {Macleod} from './detectors/macleod';
 
-import frequencies from "./tools/frequencies";
+import {frequencies} from './tools/frequencies';
 
-export default {
-  AMDF,
-  YIN,
+export const Pitchfinder = {
+  acf2plus,
   DynamicWavelet,
+  frequencies,
   Macleod,
-  ACF2PLUS,
-  frequencies
+  AMDF,
+  YIN
 };
