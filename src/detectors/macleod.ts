@@ -1,4 +1,4 @@
-import { PitchDetector } from "./types";
+import { ProbabilityPitch, ProbabalisticPitchDetector } from "./types";
 
 interface MacleodConfig {
   /**
@@ -25,12 +25,9 @@ const DEFAULT_MACLEOD_PARAMS: MacleodConfig = {
   sampleRate: 44100
 };
 
-interface MacleodResult {
-  probability: number;
-  freq: number;
-}
-
-export function Macleod(params: Partial<MacleodConfig> = {}): PitchDetector {
+export function Macleod(
+  params: Partial<MacleodConfig> = {}
+): ProbabalisticPitchDetector {
   const config: MacleodConfig = {
     ...params,
     ...DEFAULT_MACLEOD_PARAMS
@@ -64,13 +61,13 @@ export function Macleod(params: Partial<MacleodConfig> = {}): PitchDetector {
   /**
    * The x and y coordinate of the top of the curve (nsdf).
    */
-  let turningPointX: number;
-  let turningPointY: number;
+  let turningPointX;
+  let turningPointY;
 
   /**
    * A list with minimum and maximum values of the nsdf curve.
    */
-  let maxPositions: number[] = [];
+  let maxPositions = [];
 
   /**
    * A list of estimates of the period of the signal (in samples).
@@ -82,11 +79,6 @@ export function Macleod(params: Partial<MacleodConfig> = {}): PitchDetector {
    * estimates.
    */
   let ampEstimates = [];
-
-  /**
-   * The result of the pitch detection iteration.
-   */
-  let result: MacleodResult;
 
   /**
    * Implements the normalized square difference function. See section 4 (and
@@ -152,13 +144,13 @@ export function Macleod(params: Partial<MacleodConfig> = {}): PitchDetector {
     }
 
     // can happen if output[0] is NAN
-    if (pos === 0) {
+    if (pos == 0) {
       pos = 1;
     }
 
     while (pos < nsdf.length - 1) {
       if (nsdf[pos] > nsdf[pos - 1] && nsdf[pos] >= nsdf[pos + 1]) {
-        if (curMaxPos === 0) {
+        if (curMaxPos == 0) {
           // the first max (between zero crossings)
           curMaxPos = pos;
         } else if (nsdf[pos] > nsdf[curMaxPos]) {
@@ -185,7 +177,7 @@ export function Macleod(params: Partial<MacleodConfig> = {}): PitchDetector {
     }
   };
 
-  return function(float32AudioBuffer: Float32Array): number | null {
+  return function(float32AudioBuffer: Float32Array): ProbabilityPitch {
     // 0. Clear old results.
     let pitch;
     maxPositions = [];
@@ -242,10 +234,9 @@ export function Macleod(params: Partial<MacleodConfig> = {}): PitchDetector {
       pitch = -1;
     }
 
-    result = {
+    return {
       probability: highestAmplitude,
       freq: pitch
     };
-    return result.freq;
   };
 }
