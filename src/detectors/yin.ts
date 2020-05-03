@@ -24,7 +24,7 @@ import { PitchDetector } from "./types";
  * see http://recherche.ircam.fr/equipes/pcm/pub/people/cheveign.html
  */
 
-interface YinParams {
+export interface YinConfig {
   threshold: number;
   sampleRate: number;
   probabilityThreshold: number;
@@ -36,8 +36,8 @@ const DEFAULT_YIN_PARAMS = {
   probabilityThreshold: 0.1
 };
 
-export function YIN(params: Partial<YinParams> = {}): PitchDetector {
-  const config: YinParams = {
+export function YIN(params: Partial<YinConfig> = {}): PitchDetector {
+  const config: YinConfig = {
     ...DEFAULT_YIN_PARAMS,
     ...params
   };

@@ -1,8 +1,10 @@
 import { PitchDetector } from "../detectors/types";
 
-const DEFAULT_TEMPO = 120;
-const DEFAULT_QUANTIZATION = 4;
-const DEFAULT_SAMPLE_RATE = 44100;
+export const DEFAULT_FREQUENCIES_PARAMS: FrequenciesParams = {
+  tempo: 120,
+  quantization: 4,
+  sampleRate: 44100
+};
 
 function pitchConsensus(
   detectors: PitchDetector[],
@@ -46,12 +48,6 @@ interface FrequenciesParams {
   quantization: number;
   sampleRate: number;
 }
-
-export const DEFAULT_FREQUENCIES_PARAMS: FrequenciesParams = {
-  tempo: 120,
-  quantization: 4,
-  sampleRate: 44100
-};
 
 export function frequencies(
   detector: PitchDetector | PitchDetector[],

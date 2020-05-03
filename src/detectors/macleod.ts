@@ -1,6 +1,6 @@
 import { ProbabilityPitch, ProbabalisticPitchDetector } from "./types";
 
-interface MacleodConfig {
+export interface MacleodConfig {
   /**
    * The expected size of an audio buffer (in samples).
    */

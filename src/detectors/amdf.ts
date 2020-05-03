@@ -1,6 +1,6 @@
 import { PitchDetector } from "./types";
 
-interface AMDFParams {
+export interface AMDFConfig {
   sampleRate: number;
   minFrequency: number;
   maxFrequency: number;
@@ -8,7 +8,7 @@ interface AMDFParams {
   ratio: number;
 }
 
-const DEFAULT_AMDF_PARAMS: AMDFParams = {
+const DEFAULT_AMDF_PARAMS: AMDFConfig = {
   sampleRate: 44100,
   minFrequency: 82,
   maxFrequency: 1000,
@@ -16,8 +16,8 @@ const DEFAULT_AMDF_PARAMS: AMDFParams = {
   sensitivity: 0.1
 };
 
-export function AMDF(params: Partial<AMDFParams> = {}): PitchDetector {
-  const config: AMDFParams = {
+export function AMDF(params: Partial<AMDFConfig> = {}): PitchDetector {
+  const config: AMDFConfig = {
     ...DEFAULT_AMDF_PARAMS,
     ...params
   };

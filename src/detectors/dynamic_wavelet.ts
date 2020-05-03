@@ -5,7 +5,7 @@ const MAX_F = 3000;
 const DIFFERENCE_LEVELS_N = 3;
 const MAXIMA_THRESHOLD_RATIO = 0.75;
 
-interface DynamicWaveletConfig {
+export interface DynamicWaveletConfig {
   sampleRate: number;
 }
 
