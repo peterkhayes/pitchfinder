@@ -83,7 +83,7 @@ export function Macleod(params: Partial<MacleodConfig> = {}): ProbabalisticPitch
    * the explanation before) in the MPM article. This calculation can be
    * optimized by using an FFT. The results should remain the same.
    */
-  const normalizedSquareDifference = function(float32AudioBuffer: Float32Array): void {
+  function normalizedSquareDifference(float32AudioBuffer: Float32Array): void {
     let acf;
     let divisorM;
     squaredBufferSum[0] = float32AudioBuffer[0] * float32AudioBuffer[0];
@@ -102,13 +102,13 @@ export function Macleod(params: Partial<MacleodConfig> = {}): ProbabalisticPitch
       }
       nsdf[tau] = (2 * acf) / divisorM;
     }
-  };
+  }
 
   /**
    * Finds the x value corresponding with the peak of a parabola.
    * Interpolates between three consecutive points centered on tau.
    */
-  const parabolicInterpolation = function(tau: number): void {
+  function parabolicInterpolation(tau: number): void {
     const nsdfa = nsdf[tau - 1],
       nsdfb = nsdf[tau],
       nsdfc = nsdf[tau + 1],
@@ -122,10 +122,10 @@ export function Macleod(params: Partial<MacleodConfig> = {}): ProbabalisticPitch
       turningPointX = bValue + delta / (2 * bottom);
       turningPointY = nsdfb - (delta * delta) / (8 * bottom);
     }
-  };
+  }
 
   // Finds the highest value between each pair of positive zero crossings.
-  const peakPicking = function(): void {
+  function peakPicking(): void {
     let pos = 0;
     let curMaxPos = 0;
 
@@ -171,9 +171,9 @@ export function Macleod(params: Partial<MacleodConfig> = {}): ProbabalisticPitch
     if (curMaxPos > 0) {
       maxPositions.push(curMaxPos);
     }
-  };
+  }
 
-  return function(float32AudioBuffer: Float32Array): ProbabilityPitch {
+  return function Macleod(float32AudioBuffer: Float32Array): ProbabilityPitch {
     // 0. Clear old results.
     let pitch;
     maxPositions = [];
