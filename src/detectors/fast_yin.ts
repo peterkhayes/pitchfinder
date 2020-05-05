@@ -1,10 +1,8 @@
-//
 // TODO: Finish me!
-//
 
-// const FFT = require("fft");
+// import FFT from 'fft';
 
-// module.exports = function(config) {
+// export default function(config) {
 
 //   throw new Error("Unfinished!");
 

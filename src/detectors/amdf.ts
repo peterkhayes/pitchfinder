@@ -1,16 +1,32 @@
-const DEFAULT_MIN_FREQUENCY = 82;
-const DEFAULT_MAX_FREQUENCY = 1000;
-const DEFAULT_RATIO = 5;
-const DEFAULT_SENSITIVITY = 0.1;
-const DEFAULT_SAMPLE_RATE = 44100;
+import { PitchDetector } from './types';
 
-module.exports = function(config = {}) {
-  const sampleRate = config.sampleRate || DEFAULT_SAMPLE_RATE;
-  const minFrequency = config.minFrequency || DEFAULT_MIN_FREQUENCY;
-  const maxFrequency = config.maxFrequency || DEFAULT_MAX_FREQUENCY;
-  const sensitivity = config.sensitivity || DEFAULT_SENSITIVITY;
-  const ratio = config.ratio || DEFAULT_RATIO;
-  const amd = [];
+export interface AMDFConfig {
+  sampleRate: number;
+  minFrequency: number;
+  maxFrequency: number;
+  sensitivity: number;
+  ratio: number;
+}
+
+const DEFAULT_AMDF_PARAMS: AMDFConfig = {
+  sampleRate: 44100,
+  minFrequency: 82,
+  maxFrequency: 1000,
+  ratio: 5,
+  sensitivity: 0.1,
+};
+
+export function AMDF(params: Partial<AMDFConfig> = {}): PitchDetector {
+  const config: AMDFConfig = {
+    ...DEFAULT_AMDF_PARAMS,
+    ...params,
+  };
+  const sampleRate = config.sampleRate;
+  const minFrequency = config.minFrequency;
+  const maxFrequency = config.maxFrequency;
+  const sensitivity = config.sensitivity;
+  const ratio = config.ratio;
+  const amd: Array<number> = [];
 
   /* Round in such a way that both exact minPeriod as 
    exact maxPeriod lie inside the rounded span minPeriod-maxPeriod,
@@ -19,9 +35,7 @@ module.exports = function(config = {}) {
   const maxPeriod = Math.ceil(sampleRate / minFrequency);
   const minPeriod = Math.floor(sampleRate / maxFrequency);
 
-  return function AMDFDetector(float32AudioBuffer) {
-    "use strict";
-
+  return function AMDFDetector(float32AudioBuffer: Float32Array): number | null {
     const maxShift = float32AudioBuffer.length;
 
     let t = 0;
@@ -65,10 +79,10 @@ module.exports = function(config = {}) {
     const cutoff = Math.round(sensitivity * (maxval - minval) + minval);
     for (j = minPeriod; j <= maxPeriod && amd[j] > cutoff; j++);
 
-    const search_length = minPeriod / 2;
+    const searchLength = minPeriod / 2;
     minval = amd[j];
     let minpos = j;
-    for (i = j - 1; i < j + search_length && i <= maxPeriod; i++) {
+    for (i = j - 1; i < j + searchLength && i <= maxPeriod; i++) {
       if (amd[i] < minval) {
         minval = amd[i];
         minpos = i;
@@ -81,4 +95,4 @@ module.exports = function(config = {}) {
       return null;
     }
   };
-};
+}

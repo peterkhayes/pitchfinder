@@ -1,13 +1,15 @@
 {
   "name": "pitchfinder",
-  "version": "2.2.1",
+  "version": "2.3.0",
   "description": "A pitch-detection library for node and the browser",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
-    "build": "rm -rf ./lib && mkdir lib && babel src -d lib",
-    "lint": "eslint ./src",
+    "build": "tsc",
+    "lint": "eslint ./src/**/*.ts",
     "test": "mocha",
-    "ci-test": "npm install && npm run lint && npm test",
-    "prepublish": "npm run lint && npm test && npm run build"
+    "ci-test": "yarn && yarn lint && yarn test",
+    "prepublish": "yarn lint && yarn test && yarn build"
   },
   "repository": {
     "type": "git",
@@ -33,16 +35,18 @@
   },
   "homepage": "https://github.com/peterkhayes/pitchfinder#readme",
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-eslint": "^10.0.3",
-    "babel-preset-env": "^1.6.1",
+    "@types/mocha": "^7.0.2",
+    "@types/mz": "^2.7.0",
+    "@types/node": "^13.13.4",
     "eslint": "^6.8.0",
-    "eslint-config-prettier": "^6.9.0",
-    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-config-peterkhayes": "^2.2.0",
+    "eslint-plugin-prettier": "^3.1.3",
     "expect": "^24.9.0",
     "mocha": "^7.0.0",
     "mz": "^2.4.0",
     "prettier": "^1.19.1",
+    "ts-node": "^8.10.1",
+    "typescript": "^3.8.3",
     "wav": "^1.0.0",
     "wav-decoder": "^1.1.0"
   }

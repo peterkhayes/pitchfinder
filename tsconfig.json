@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+      "allowJs": false,
+      "declaration": true,
+      "esModuleInterop": true,
+      "forceConsistentCasingInFileNames": true, /* Disallow inconsistently-cased references to the same file. */
+      "incremental": true,
+      "outDir": "./lib",
+      "target": "es5"
+  },
+  "include": [ "./src/**/*" ]
+}

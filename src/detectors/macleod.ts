@@ -1,19 +1,37 @@
-module.exports = function(config) {
-  config = config || {};
+import { ProbabilityPitch, ProbabalisticPitchDetector } from './types';
 
+export interface MacleodConfig {
   /**
    * The expected size of an audio buffer (in samples).
    */
-  const DEFAULT_BUFFER_SIZE = 1024;
+  bufferSize: number;
 
   /**
    * Defines the relative size the chosen peak (pitch) has. 0.93 means: choose
    * the first peak that is higher than 93% of the highest peak detected. 93%
    * is the default value used in the Tartini user interface.
    */
-  const DEFAULT_CUTOFF = 0.97;
+  cutoff: number;
 
-  const DEFAULT_SAMPLE_RATE = 44100;
+  /**
+   * Sample rate
+   */
+  sampleRate: number;
+}
+
+const DEFAULT_MACLEOD_PARAMS: MacleodConfig = {
+  bufferSize: 1024,
+  cutoff: 0.97,
+  sampleRate: 44100,
+};
+
+export function Macleod(params: Partial<MacleodConfig> = {}): ProbabalisticPitchDetector {
+  const config: MacleodConfig = {
+    ...DEFAULT_MACLEOD_PARAMS,
+    ...params,
+  };
+
+  const { bufferSize, cutoff, sampleRate } = config;
 
   /**
    * For performance reasons, peaks below this cutoff are not even considered.
@@ -25,21 +43,6 @@ module.exports = function(config) {
    * ignored.
    */
   const LOWER_PITCH_CUTOFF = 80;
-
-  /**
-   * Defines the relative size the chosen peak (pitch) has.
-   */
-  const cutoff = config.cutoff || DEFAULT_CUTOFF;
-
-  /**
-   * The audio sample rate. Most audio has a sample rate of 44.1kHz.
-   */
-  const sampleRate = config.sampleRate || DEFAULT_SAMPLE_RATE;
-
-  /**
-   * Size of the input buffer.
-   */
-  const bufferSize = config.bufferSize || DEFAULT_BUFFER_SIZE;
 
   /**
    * Contains a normalized square difference function value for each delay
@@ -56,13 +59,13 @@ module.exports = function(config) {
   /**
    * The x and y coordinate of the top of the curve (nsdf).
    */
-  let turningPointX;
-  let turningPointY;
+  let turningPointX: number;
+  let turningPointY: number;
 
   /**
    * A list with minimum and maximum values of the nsdf curve.
    */
-  let maxPositions = [];
+  let maxPositions: Array<number> = [];
 
   /**
    * A list of estimates of the period of the signal (in samples).
@@ -76,16 +79,11 @@ module.exports = function(config) {
   let ampEstimates = [];
 
   /**
-   * The result of the pitch detection iteration.
-   */
-  const result = {};
-
-  /**
    * Implements the normalized square difference function. See section 4 (and
    * the explanation before) in the MPM article. This calculation can be
    * optimized by using an FFT. The results should remain the same.
    */
-  const normalizedSquareDifference = function(float32AudioBuffer) {
+  const normalizedSquareDifference = function(float32AudioBuffer: Float32Array): void {
     let acf;
     let divisorM;
     squaredBufferSum[0] = float32AudioBuffer[0] * float32AudioBuffer[0];
@@ -110,7 +108,7 @@ module.exports = function(config) {
    * Finds the x value corresponding with the peak of a parabola.
    * Interpolates between three consecutive points centered on tau.
    */
-  const parabolicInterpolation = function(tau) {
+  const parabolicInterpolation = function(tau: number): void {
     const nsdfa = nsdf[tau - 1],
       nsdfb = nsdf[tau],
       nsdfc = nsdf[tau + 1],
@@ -127,7 +125,7 @@ module.exports = function(config) {
   };
 
   // Finds the highest value between each pair of positive zero crossings.
-  const peakPicking = function() {
+  const peakPicking = function(): void {
     let pos = 0;
     let curMaxPos = 0;
 
@@ -175,7 +173,7 @@ module.exports = function(config) {
     }
   };
 
-  return function(float32AudioBuffer) {
+  return function(float32AudioBuffer: Float32Array): ProbabilityPitch {
     // 0. Clear old results.
     let pitch;
     maxPositions = [];
@@ -232,8 +230,9 @@ module.exports = function(config) {
       pitch = -1;
     }
 
-    result.probability = highestAmplitude;
-    result.freq = pitch;
-    return result;
+    return {
+      probability: highestAmplitude,
+      freq: pitch,
+    };
   };
-};
+}

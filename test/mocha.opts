@@ -1,5 +1,6 @@
---require babel-core/register
+--require ts-node/register
 --recursive
 --reporter spec
 --ui bdd
 --timeout 20000
+test/**/*.ts

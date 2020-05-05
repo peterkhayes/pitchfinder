@@ -1,16 +1,26 @@
-const DEFAULT_SAMPLE_RATE = 44100;
+import { PitchDetector } from './types';
 
-module.exports = function(config = {}) {
-  const sampleRate = config.sampleRate || DEFAULT_SAMPLE_RATE;
+export interface ACF2Config {
+  sampleRate: number;
+}
+
+const DEFAULT_PARAMS: ACF2Config = {
+  sampleRate: 44100,
+};
+
+export function ACF2PLUS(params: Partial<ACF2Config> = DEFAULT_PARAMS): PitchDetector {
+  const config = {
+    ...DEFAULT_PARAMS,
+    ...params,
+  };
+  const { sampleRate } = config;
 
   // Implements the ACF2+ algorithm
-  return function ACF2PLUSDetector(float32AudioBuffer) {
-    "use strict";
-
+  return function ACF2PLUSDetector(float32AudioBuffer: Float32Array): number {
     const maxShift = float32AudioBuffer.length;
 
     let rms = 0;
-    let thres, i, j, u, aux1, aux2, tmp;
+    let i, j, u, tmp;
 
     for (i = 0; i < maxShift; i++) {
       tmp = float32AudioBuffer[i];
@@ -25,7 +35,9 @@ module.exports = function(config = {}) {
 
     /* Trimming cuts the edges of the signal so that it starts and ends near zero. 
      This is used to neutralize an inherent instability of the ACF version I use.*/
-    (aux1 = 0), (aux2 = maxShift - 1), (thres = 0.2);
+    let aux1 = 0;
+    let aux2 = maxShift - 1;
+    const thres = 0.2;
     for (i = 0; i < maxShift / 2; i++)
       if (Math.abs(float32AudioBuffer[i]) < thres) {
         aux1 = i;
@@ -40,7 +52,7 @@ module.exports = function(config = {}) {
     const frames = float32AudioBuffer.slice(aux1, aux2);
     const framesLength = frames.length;
 
-    const calcSub = new Array(framesLength).fill(0);
+    const calcSub = new Array<number>(framesLength).fill(0);
     for (i = 0; i < framesLength; i++)
       for (j = 0; j < framesLength - i; j++)
         calcSub[i] = calcSub[i] + frames[j] * frames[j + i];
@@ -73,4 +85,4 @@ module.exports = function(config = {}) {
 
     return sampleRate / T0;
   };
-};
+}
