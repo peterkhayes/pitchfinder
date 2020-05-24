@@ -9,7 +9,11 @@ import {
   ProbabilityPitch,
 } from './detectors/types';
 
-import { frequencies } from './tools/frequencies';
+import {
+  frequencies,
+  FrequenciesParams,
+  consensusPitchDetector,
+} from './tools/frequencies';
 
 export {
   YIN,
@@ -23,6 +27,8 @@ export {
   Macleod,
   MacleodConfig,
   frequencies,
+  FrequenciesParams,
+  consensusPitchDetector,
   PitchDetector,
   ProbabalisticPitchDetector,
   ProbabilityPitch,
@@ -35,4 +41,5 @@ export default {
   DynamicWavelet,
   Macleod,
   frequencies,
+  consensusPitchDetector,
 };
