@@ -2,12 +2,6 @@
 # pitchfinder
 A compilation of pitch detection algorithms for Javascript. Supports both the browser and node.
 
-## A note on versions
-
-This library previous consisted of a single script tag to be included in the browser.  I'm deprecating that version and replacing it with a new, `npm`/`babel` version.  If you have been using the old version, please check out the `legacy` branch, which consists of the old code.  However, I will not be supporting it going forwards.  Version 2 is bringing many improvements, unit tests, and more.
-
-If you'd like a version that uses compiled C++ code and runs much faster, check out [this repo](https://github.com/cristovao-trevisan/node-pitchfinder). However, it will not work in the browser.
-
 ## Provided pitch-finding algorithms
 - **YIN** - The best balance of accuracy and speed, in my experience.  Occasionally provides values that are wildly incorrect.
 - **AMDF** - Slow and only accurate to around +/- 2%, but finds a frequency more consistenly than others.
@@ -28,8 +22,8 @@ const fs = require("fs");
 const WavDecoder = require("wav-decoder");
 const Pitchfinder = require("pitchfinder");
 
-// see below for optional constructor parameters.
-const detectPitch = new Pitchfinder.YIN();
+// see below for optional configuration parameters.
+const detectPitch = Pitchfinder.YIN();
 
 const buffer = fs.readFileSync(PATH_TO_FILE);
 const decoded = WavDecoder.decode.sync(buffer); // get audio data from file using `wav-decoder`
@@ -87,6 +81,9 @@ const moreAccurateFrequencies = Pitchfinder.frequencies(detectors, float32Array,
 ### Dynamic Wavelet
 *no special config*
 
+## Note
+
+If you'd like a version that uses compiled C++ code and runs much faster, check out [this repo](https://github.com/cristovao-trevisan/node-pitchfinder). However, it will not work in the browser.
 
 ## Todo
 - Integrate with `teoria` or another music theory tool to add more intelligent parsing.
