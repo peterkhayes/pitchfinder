@@ -3,8 +3,17 @@ import { AMDF, AMDFConfig } from './detectors/amdf';
 import { ACF2PLUS, ACF2Config } from './detectors/acf2plus';
 import { DynamicWavelet, DynamicWaveletConfig } from './detectors/dynamic_wavelet';
 import { Macleod, MacleodConfig } from './detectors/macleod';
+import {
+  PitchDetector,
+  ProbabalisticPitchDetector,
+  ProbabilityPitch,
+} from './detectors/types';
 
-import { frequencies } from './tools/frequencies';
+import {
+  frequencies,
+  FrequenciesParams,
+  consensusPitchDetector,
+} from './tools/frequencies';
 
 export {
   YIN,
@@ -17,6 +26,12 @@ export {
   DynamicWaveletConfig,
   Macleod,
   MacleodConfig,
+  frequencies,
+  FrequenciesParams,
+  consensusPitchDetector,
+  PitchDetector,
+  ProbabalisticPitchDetector,
+  ProbabilityPitch,
 };
 
 export default {
@@ -26,4 +41,5 @@ export default {
   DynamicWavelet,
   Macleod,
   frequencies,
+  consensusPitchDetector,
 };
