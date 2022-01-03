@@ -17,6 +17,7 @@ export {
   DynamicWaveletConfig,
   Macleod,
   MacleodConfig,
+  frequencies,
 };
 
 export default {
