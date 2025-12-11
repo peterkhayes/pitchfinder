@@ -7,11 +7,12 @@ A compilation of pitch detection algorithms for Javascript. Supports both the br
 ## Provided pitch-finding algorithms
 
 - **YIN** - The best balance of accuracy and speed, in my experience. Occasionally provides values that are wildly incorrect.
+- **Mcleod** - Also works well. Some have reported better performance on lower frequencies.
 - **AMDF** - Slow and only accurate to around +/- 2%, but finds a frequency more consistenly than others.
 - **Dynamic Wavelet** - Very fast, but struggles to identify lower frequencies.
 - **YIN w/ FFT** _(coming soon)_
 - **Goertzel** _(coming soon)_
-- **Mcleod** _(coming soon)_
+
 
 ## Installation
 
@@ -86,6 +87,11 @@ const moreAccurateFrequencies = Pitchfinder.frequencies(
 
 - `threshold` - used by the algorithm
 - `probabilityThreshold` - don't return a pitch if probability estimate is below this number.
+
+### McLeod
+
+- `bufferSize` - The expected buffer size in samples. Defaults to 1024.
+- `cutoff` - Defines the relative size the chosen peak (pitch) has. 0.93 means: choose the first peak that is higher than 93% of the highest peak detected. 93% is the default value used in the Tartini user interface.
 
 ### AMDF
 
